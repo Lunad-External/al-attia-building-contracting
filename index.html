@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="favicon.png">
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
+<link rel="icon" type="image/png" href="./src/assets/favicon.png">
+<link rel="apple-touch-icon" href="./src/assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap">
 <script src="./services-data.js"></script>
@@ -24,6 +24,7 @@ a:hover{color:#9A6B43}
 h1,h2,h3,h4{font-family:Inter,system-ui,sans-serif;font-weight:500;letter-spacing:-0.02em;margin:0;text-wrap:balance}
 p{margin:0;text-wrap:pretty}
 summary::-webkit-details-marker{display:none}
+@media (hover:none),(pointer:coarse){image-slot{pointer-events:none}}
 input,select,textarea,button{font-family:inherit}
 </style>
 </helmet>
@@ -310,7 +311,7 @@ input,select,textarea,button{font-family:inherit}
     </div>
     <p style="font-size:18px;line-height:1.65;color:#5E625C">A predictable workflow designed for speed without sacrificing quality.</p>
   </div>
-  <div style="margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:0 32px">
+  <div style="margin-top:56px;display:grid;grid-template-columns:repeat({{ procCols }},minmax(0,1fr));gap:0 48px">
     <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
       <div data-reveal="1" style="border-top:2px solid #1F2420;padding-top:24px;padding-bottom:32px;display:flex;flex-direction:column;gap:14px">
         <span style="font-family:Inter,system-ui,sans-serif;font-size:64px;line-height:0.9;color:#9A6B43">{{ s.num }}</span>
@@ -354,7 +355,7 @@ input,select,textarea,button{font-family:inherit}
   </div>
 </section>
 
-<section id="faq" style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px);scroll-margin-top:84px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:40px clamp(40px,6vw,96px);align-items:start">
+<section id="faq" style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px);scroll-margin-top:84px;display:flex;flex-direction:column;gap:40px">
   <div data-reveal="1" style="display:flex;flex-direction:column;gap:18px">
     <h2 style="font-size:clamp(44px,5.4vw,72px);line-height:1">FAQ</h2>
     <p style="font-size:18px;line-height:1.65;color:#5E625C">Common questions clients ask before requesting a quote.</p>
@@ -710,7 +711,6 @@ input,select,textarea,button{font-family:inherit}
       <article data-reveal="1" style="display:flex;flex-direction:column;background:#FBFAF7;border:1px solid #DDD7CC;border-radius:20px;overflow:hidden;transition:transform .5s ease, box-shadow .5s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 50px rgba(20,24,21,0.10)">
         <div style="overflow:hidden;aspect-ratio:4/3;background:#E6E0D6"><div style="width:100%;height:100%;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"><image-slot id="{{ c.slot }}" shape="rect" src="{{ c.src }}" placeholder="{{ c.ph }}"></image-slot></div></div>
         <div style="padding:26px;display:flex;flex-direction:column;gap:14px;flex:1">
-          <span style="font-size:12px;font-weight:700;color:#9A6B43;letter-spacing:0.1em">{{ c.num }}</span>
           <h3 style="font-size:23px;line-height:1.2"><a href="{{ c.href }}" style="color:#1F2420">{{ c.name }}</a></h3>
           <p style="font-size:14.5px;line-height:1.65;color:#5E625C">{{ c.short }}</p>
           <ul style="list-style:none;margin:0;padding:14px 0 0;border-top:1px solid #E6E0D6;display:flex;flex-direction:column;gap:8px">
@@ -730,8 +730,7 @@ input,select,textarea,button{font-family:inherit}
   </div>
   <div style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:0 40px;border-top:1px solid #1F2420">
     <sc-for list="{{ why }}" as="w" hint-placeholder-count="6">
-      <div data-reveal="1" style="padding:30px 0;border-bottom:1px solid #DDD7CC;display:grid;grid-template-columns:48px 1fr;gap:16px">
-        <span style="font-size:15px;color:#9A6B43;font-weight:600">{{ w.num }}</span>
+      <div data-reveal="1" style="padding:30px 0;border-bottom:1px solid #DDD7CC">
         <div style="display:flex;flex-direction:column;gap:8px"><h3 style="font-size:20px">{{ w.t }}</h3><p style="font-size:14.5px;line-height:1.65;color:#5E625C">{{ w.d }}</p></div>
       </div>
     </sc-for>
@@ -743,7 +742,7 @@ input,select,textarea,button{font-family:inherit}
       <h2 style="font-size:clamp(30px,3.4vw,44px);line-height:1.1">Looking for the Right Solution for Your Project?</h2>
       <p style="font-size:16px;line-height:1.7;color:#C8C3B8">Whether you require HVAC installation, building maintenance, aluminium works, interior fit-out or complete renovation, our team is ready to discuss your requirements.</p>
     </div>
-    <div style="display:flex;flex-wrap:wrap;gap:12px"><a href="#contact" style="background:#F6F3EE;color:#1F2420;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#9A6B43;color:#fff">Contact Our Team</a></div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px"><a href="#contact" onClick="{{ openQuote }}" style="background:#F6F3EE;color:#1F2420;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#9A6B43;color:#fff">Contact Our Team</a></div>
   </div>
 </section>
 </sc-if>
@@ -808,10 +807,10 @@ input,select,textarea,button{font-family:inherit}
 </sc-if>
 
 <sc-if value="{{ isSvc }}" hint-placeholder-val="{{ false }}">
-<section style="position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;background:#141815">
+<section style="position:relative;display:flex;align-items:flex-end;overflow:hidden;background:#141815">
   <div style="position:absolute;inset:0"><image-slot id="{{ svc.heroId }}" shape="rect" src="{{ svc.src }}" placeholder="{{ svc.ph }}"></image-slot></div>
   <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(20,24,21,0.88) 0%,rgba(20,24,21,0.6) 55%,rgba(20,24,21,0.25) 100%)"></div>
-  <div style="position:relative;pointer-events:none;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(56px,8vw,112px)) clamp(20px,4vw,48px) clamp(48px,6vw,72px);color:#F6F3EE;display:flex;flex-direction:column;gap:22px">
+  <div style="position:relative;pointer-events:none;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(16px,2vw,24px)) clamp(20px,4vw,48px) clamp(40px,5vw,64px);color:#F6F3EE;display:flex;flex-direction:column;gap:22px">
     <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#D9D3C7;pointer-events:auto"><a href="#top" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Home</a><span style="opacity:0.6">›</span><a href="#/services" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Services</a><span style="opacity:0.6">›</span><a href="{{ svc.catHref }}" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">{{ svc.catName }}</a><span style="opacity:0.6">›</span><span style="color:#fff;white-space:nowrap">{{ svc.name }}</span></nav>
     <h1 style="font-size:clamp(38px,5vw,68px);line-height:1.04;max-width:900px">{{ svc.name }}</h1>
     <p style="font-size:18px;line-height:1.65;max-width:640px;color:#E6E1D8">{{ svc.intro }}</p>
@@ -843,10 +842,9 @@ input,select,textarea,button{font-family:inherit}
   <aside data-reveal="1" style="position:sticky;top:108px;background:#1F2420;color:#F3EFE8;border-radius:20px;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:18px">
     <h3 style="font-size:28px;line-height:1.15">Discuss {{ svc.name }} with our team</h3>
     <p style="font-size:15px;line-height:1.65;color:#C8C3B8">Send us your project details and we will get back to you with next steps, a site visit where needed, and a transparent quotation.</p>
-    <a href="{{ svc.wa }}" target="_blank" rel="noreferrer" style="background:#9A6B43;color:#fff;text-align:center;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Enquire on WhatsApp</a>
-    <a href="tel:+971542111113" style="border:1px solid rgba(246,243,238,0.4);color:#F6F3EE;text-align:center;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Call 054 211 1113</a>
-    <a href="#contact" style="font-size:14px;color:#D9B48F;text-align:center;text-decoration:underline">Use the enquiry form</a>
-  </aside>
+    <a href="{{ svc.wa }}" target="_blank" rel="noreferrer" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#9A6B43;color:#fff;text-align:center;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>Enquire on WhatsApp</a>
+    <a href="tel:+971542111113" style="border:1px solid rgba(246,243,238,0.4);color:#F6F3EE;text-align:center;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Call +971 54 211 1113</a>
+    </aside>
 </section>
 <section style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:20px">
   <div data-reveal="1"><div style="overflow:hidden;border-radius:16px;aspect-ratio:4/3;background:#E6E0D6;"><div style="width:100%;height:100%;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"><image-slot id="{{ svc.imgA }}" shape="rect" src="{{ svc.src }}" placeholder="{{ svc.ph }}"></image-slot></div></div></div>
@@ -879,7 +877,7 @@ input,select,textarea,button{font-family:inherit}
       <h2 style="font-size:clamp(30px,3.4vw,44px);line-height:1.1">Ready to discuss {{ svc.name }}?</h2>
       <p style="font-size:16px;line-height:1.7;color:#C8C3B8">Share your project type, size, location and timeline. Our team will review your requirements and arrange a site visit and detailed quotation where needed.</p>
     </div>
-    <div style="display:flex;flex-wrap:wrap;gap:12px"><a href="{{ svc.wa }}" target="_blank" rel="noreferrer" style="background:#9A6B43;color:#fff;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Enquire on WhatsApp</a><a href="#contact" style="border:1px solid rgba(246,243,238,0.6);color:#F6F3EE;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Contact Our Team</a></div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px"><a href="{{ svc.wa }}" target="_blank" rel="noreferrer" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#9A6B43;color:#fff;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>Enquire on WhatsApp</a><a href="#contact" style="border:1px solid rgba(246,243,238,0.6);color:#F6F3EE;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Contact Our Team</a></div>
   </div>
 </section>
 </sc-if>
@@ -928,7 +926,7 @@ input,select,textarea,button{font-family:inherit}
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;padding-top:20px;border-top:1px solid rgba(243,239,232,0.12)">
         <span style="font-size:13px;font-weight:600;color:#F3EFE8">Follow us on</span>
         <div style="display:flex;gap:10px">
-          <a href="#" aria-label="Instagram" style="width:42px;height:42px;border-radius:10px;border:1px solid rgba(243,239,232,0.25);display:grid;place-items:center;color:#FFFFFF;transition:background .3s ease, border-color .3s ease" style-hover="background:rgba(243,239,232,0.1);border-color:rgba(243,239,232,0.6)"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.4-1.3.8-.4.4-.6.8-.8 1.3-.2.4-.3 1-.4 2.1C2.6 8.5 2.6 8.9 2.6 12s0 3.5.1 4.7c.1 1.1.2 1.7.4 2.1.2.5.4.9.8 1.3.4.4.8.6 1.3.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.4 1.3-.8.4-.4.6-.8.8-1.3.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.3-.4-.4-.8-.6-1.3-.8-.4-.2-1-.3-2.1-.4C15.5 4 15.1 4 12 4zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm0 8a3.1 3.1 0 1 0 0-6.2 3.1 3.1 0 0 0 0 6.2zm5.1-8.3a1.15 1.15 0 1 1 0-2.3 1.15 1.15 0 0 1 0 2.3z"></path></svg></a>
+          <a href="#" aria-label="Instagram" style="width:42px;height:42px;border-radius:10px;border:1px solid rgba(243,239,232,0.25);display:grid;place-items:center;color:#FFFFFF;transition:background .3s ease, border-color .3s ease" style-hover="background:rgba(243,239,232,0.1);border-color:rgba(243,239,232,0.6)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
           <a href="#" aria-label="LinkedIn" style="width:42px;height:42px;border-radius:10px;border:1px solid rgba(243,239,232,0.25);display:grid;place-items:center;color:#FFFFFF;transition:background .3s ease, border-color .3s ease" style-hover="background:rgba(243,239,232,0.1);border-color:rgba(243,239,232,0.6)"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3v-11zm6.5 0h3.8v1.5h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4v-11z"></path></svg></a>
           <a href="#" aria-label="Facebook" style="width:42px;height:42px;border-radius:10px;border:1px solid rgba(243,239,232,0.25);display:grid;place-items:center;color:#FFFFFF;transition:background .3s ease, border-color .3s ease" style-hover="background:rgba(243,239,232,0.1);border-color:rgba(243,239,232,0.6)"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.6c0-.87.25-1.46 1.5-1.46h1.55V4.47c-.27-.04-1.2-.12-2.27-.12-2.25 0-3.78 1.37-3.78 3.89v2.26H8v3h2.5V21h3z"></path></svg></a>
         </div>
@@ -1243,7 +1241,7 @@ class Component extends DCLogic {
         logoShadow: over ? "drop-shadow(0 1px 10px rgba(0,0,0,0.35))" : "none",
       }; })(),
       ...(() => { const hasHero = s.route.type === "home" ? (p.heroStyle ?? "Video") !== "Split" : s.route.type !== "project"; const hide = ((hasHero && !s.pastHero) || s.atFooter) && !s.chat; return { fabOp: hide ? 0 : 1, fabVis: hide ? "hidden" : "visible", fabY: hide ? "16px" : "0px" }; })(),
-      heroCtaAlign: "flex-start",
+      heroCtaAlign: "flex-start", procCols: s.w < 640 ? 1 : 2,
       projGap: s.w < 640 ? "32px 14px" : "48px 24px",
       isMobile, showDesktopNav: !isMobile, showMobileMenu: isMobile && s.menu,
       menuLabel: s.menu ? "Close" : "Menu",
