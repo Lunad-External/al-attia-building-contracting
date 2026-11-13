@@ -434,7 +434,7 @@ input,select,textarea,button{font-family:inherit}
     <p style="font-size:16.5px;line-height:1.75;color:#5E625C">Based in Ajman, our team brings together contracting and maintenance capabilities with in-house manufacturing for aluminium works, kitchens and furniture. This allows us to coordinate design, production and installation closely, keep communication clear from the first site visit to handover, and support clients with reliable aftercare.</p>
   </div>
   <div data-reveal="1" style="display:flex;flex-direction:column;gap:28px">
-    <div style="overflow:hidden;border-radius:20px;aspect-ratio:4/3;background:#E6E0D6"><div style="width:100%;height:100%;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"><image-slot id="about-overview" shape="rect" src="src/assets/hero-modern-villa.png" placeholder="Company / project photo"></image-slot></div></div>
+    <div style="overflow:hidden;border-radius:20px;aspect-ratio:4/3;background:#E6E0D6"><div style="width:100%;height:100%;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"><image-slot id="about-overview" shape="rect" src="src/assets/projects/IMG_2648.jpg" placeholder="Company / project photo"></image-slot></div></div>
     <div style="display:flex;flex-direction:column;border-top:1px solid #1F2420">
       <sc-for list="{{ aboutCats }}" as="c" hint-placeholder-count="6">
         <a href="{{ c.href }}" style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:17px 0;border-bottom:1px solid #DDD7CC;color:#1F2420;font-size:16px;font-weight:500;transition:color .25s ease, padding .25s ease" style-hover="color:#9A6B43;padding-left:6px">{{ c.name }}<span style="color:#9A6B43">→</span></a>
@@ -653,7 +653,7 @@ input,select,textarea,button{font-family:inherit}
   <h2 data-reveal="1" style="font-size:clamp(26px,2.8vw,36px)">Project Gallery</h2>
   <div style="margin-top:28px;display:grid;grid-template-columns:repeat({{ projCols }},minmax(0,1fr));gap:20px">
     <sc-for list="{{ proj.gallery }}" as="g" hint-placeholder-count="3">
-      <div data-reveal="1" style="overflow:hidden;border-radius:16px;aspect-ratio:4/3;background:#E6E0D6"><div style="width:100%;height:100%;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"><image-slot id="{{ g.id }}" shape="rect" placeholder="Additional project image"></image-slot></div></div>
+      <div data-reveal="1" style="overflow:hidden;border-radius:16px;aspect-ratio:4/3;background:#E6E0D6"><div style="width:100%;height:100%;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"><image-slot id="{{ g.id }}" shape="rect" src="{{ g.src }}" placeholder="Additional project image"></image-slot></div></div>
     </sc-for>
   </div>
 </section>
@@ -857,8 +857,8 @@ input,select,textarea,button{font-family:inherit}
     </aside>
 </section>
 <section style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:20px">
-  <div data-reveal="1"><div style="overflow:hidden;border-radius:16px;aspect-ratio:4/3;background:#E6E0D6;"><div style="width:100%;height:100%;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"><image-slot id="{{ svc.imgA }}" shape="rect" src="{{ svc.src }}" placeholder="{{ svc.ph }}"></image-slot></div></div></div>
-  <div data-reveal="1"><div style="overflow:hidden;border-radius:16px;aspect-ratio:4/3;background:#E6E0D6;"><div style="width:100%;height:100%;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"><image-slot id="{{ svc.imgB }}" shape="rect" src="" placeholder="{{ svc.ph }}"></image-slot></div></div></div>
+  <div data-reveal="1"><div style="overflow:hidden;border-radius:16px;aspect-ratio:4/3;background:#E6E0D6;"><div style="width:100%;height:100%;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"><image-slot id="{{ svc.imgA }}" shape="rect" src="{{ svc.srcA }}" placeholder="{{ svc.ph }}"></image-slot></div></div></div>
+  <div data-reveal="1"><div style="overflow:hidden;border-radius:16px;aspect-ratio:4/3;background:#E6E0D6;"><div style="width:100%;height:100%;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"><image-slot id="{{ svc.imgB }}" shape="rect" src="{{ svc.srcB }}" placeholder="{{ svc.ph }}"></image-slot></div></div></div>
 </section>
 <section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px) 0">
   <div data-reveal="1" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px">
@@ -1023,8 +1023,8 @@ const FAQS = [
   ["What info should I share to get an accurate price?","Project type, area/size, location, timeline, and any drawings/photos. You can also generate a structured brief using the Project Brief Generator at the top."],
 ];
 const A = "src/assets/";
-const HERO_SLIDES = [[A+"hero-classical-villa.png","Classical white villa with columns and wrought-iron balconies"],[A+"hero-modern-villa.png","Modern stone-clad villa at dusk"],[A+"hero-commercial-building.png","Contemporary commercial building with glass storefronts"],[A+"hero-alattia-plaza.png","Al Attia Plaza 2 building facade"],[A+"project-villa-front.jpg","Classical villa by Al Attia Group"]];
-const GAL = { "aluminium-facade-works": [A+"project-modern-entrance.jpg", A+"project-modern-row.jpg"], "building-maintenance": [A+"project-villa-front.jpg", A+"project-villa-landscaping.jpg", A+"project-modern-row.jpg"], "renovation-services": [A+"project-villa-sunset.jpg", A+"project-villa-garden.jpg", A+"project-villa-front.jpg"] };
+const HERO_SLIDES = [[A+"projects/IMG_2640.jpg","Contemporary villa with courtyard pool at night"],[A+"projects/IMG_2621.jpg","Modern villa with feature lighting and landscaped garden"],[A+"projects/IMG_2646.jpg","Modern villa with lit garden steps"],[A+"hero-classical-villa.png","Classical white villa with columns and wrought-iron balconies"],[A+"hero-modern-villa.png","Modern stone-clad villa at dusk"],[A+"hero-commercial-building.png","Contemporary commercial building with glass storefronts"],[A+"hero-alattia-plaza.png","Al Attia Plaza 2 building facade"],[A+"project-villa-front.jpg","Classical villa by Al Attia Group"]];
+const GAL = { "hvac-services": [A+"projects/IMG_2635.jpg", A+"projects/IMG_2634.jpg", A+"projects/IMG_2632.jpg"], "aluminium-facade-works": [A+"projects/IMG_2625.jpg", A+"projects/IMG_2624.jpg"].concat([A+"project-modern-entrance.jpg"]), "building-maintenance": [A+"projects/IMG_2619.jpg", A+"projects/IMG_2623.jpg"].concat([A+"project-villa-front.jpg"]), "interior-fit-out": [A+"projects/IMG_2633.jpg", A+"projects/IMG_2636.jpg", A+"projects/IMG_2638.jpg"], "kitchen-solutions": [A+"projects/IMG_2641.jpg", A+"projects/IMG_2642.jpg", A+"projects/IMG_2630.jpg"], "renovation-services": [A+"projects/IMG_2647.jpg"].concat([A+"project-villa-sunset.jpg", A+"project-villa-garden.jpg"]) };
 const BASE = "https://alattiagroup.com";
 const CF0 = { company: "", name: "", code: "+971", phone: "", email: "", message: "", hp: "" };
 const r0isSplit = (s, p) => s.route.type === "home" && (p.heroStyle ?? "Video") === "Split";
@@ -1198,7 +1198,7 @@ class Component extends DCLogic {
       projWa: waLink(proj ? "Hello Al Attia Group, I'm planning a project similar to " + proj.name + "." : "Hello Al Attia Group, I'd like to start a project."),
       projList: PJ ? PJ.PROJECTS.map((x) => ({ name: x.name, location: x.location, href: "#/projects/" + x.slug, bg: 'url("' + x.image + '")' })) : [],
       projMore: PJ && proj ? PJ.PROJECTS.filter((x) => x.slug !== proj.slug).slice(0, 3).map((x) => ({ name: x.name, location: x.location, href: "#/projects/" + x.slug, bg: 'url("' + x.image + '")' })) : [],
-      proj: proj ? { name: proj.name, location: proj.location, paras: [].concat(proj.description), categoryName: PJ.CATEGORIES[proj.category] || "", client: proj.client || "To be confirmed", bg: 'url("' + proj.image + '")', wa: waLink("Hello Al Attia Group, I'm interested in a project similar to " + proj.name + "."), gallery: Array.from({ length: proj.gallery }, (_, i) => ({ id: "proj-" + proj.slug + "-" + (i + 1) })) } : { gallery: [], paras: [] },
+      proj: proj ? { name: proj.name, location: proj.location, paras: [].concat(proj.description), categoryName: PJ.CATEGORIES[proj.category] || "", client: proj.client || "To be confirmed", bg: 'url("' + proj.image + '")', wa: waLink("Hello Al Attia Group, I'm interested in a project similar to " + proj.name + "."), gallery: Array.isArray(proj.gallery) ? proj.gallery.map((src, i) => ({ id: "proj-" + proj.slug + "-" + (i + 1), src })) : Array.from({ length: proj.gallery }, (_, i) => ({ id: "proj-" + proj.slug + "-" + (i + 1) })) } : { gallery: [], paras: [] },
       aboutCats: cats.map((c) => ({ name: c.name, href: cH(c) })),
       coreValues: [["Quality","Maintaining high standards in every aspect of our work."],["Integrity","Building trust through transparency, honesty and accountability."],["Customer Commitment","Understanding and prioritising our clients' requirements."],["Professionalism","Delivering projects with responsibility, efficiency and attention to detail."],["Continuous Improvement","Embracing better methods, technologies and solutions."]].map(([t, d]) => ({ t, d })), isLanding: page === "landing" || page === "loading", isCat: page === "cat", isSvc: page === "svc",
       megaOp: s.mega ? 1 : 0, megaVis: s.mega ? "visible" : "hidden", megaY: s.mega ? "0px" : "-8px", megaRot: s.mega ? "180deg" : "0deg",
@@ -1217,7 +1217,7 @@ class Component extends DCLogic {
         gallery: [0, 1, 2].map((i) => ({ id: cat.slot + "-g" + (i + 1), src: (GAL[cat.slug] || [])[i] || undefined, ph: cat.placeholder })),
         related: cat.related.map((sl) => cats.find((c) => c.slug === sl)).filter(Boolean).map(card) } : emptyCat,
       svc: svc ? { name: svc.name, intro: svc.intro, overview: svc.overview, scope: svc.scope, apps: svc.apps, catName: cat.name, catHref: cH(cat),
-        heroId: cat.slot + "-" + svc.slug + "-hero", imgA: cat.slot + "-" + svc.slug + "-a", imgB: cat.slot + "-" + svc.slug + "-b", src: cat.img || undefined, ph: svc.name + " photo", wa: wa(svc.name),
+        heroId: cat.slot + "-" + svc.slug + "-hero", imgA: cat.slot + "-" + svc.slug + "-a", imgB: cat.slot + "-" + svc.slug + "-b", src: cat.img || undefined, srcA: (GAL[cat.slug] || [])[1] || cat.img || undefined, srcB: (GAL[cat.slug] || [])[2] || undefined, ph: svc.name + " photo", wa: wa(svc.name),
         related: cat.services.filter((x) => x.slug !== svc.slug).slice(0, 3).map((x) => ({ name: x.name, intro: x.intro, href: sH(cat, x) })),
         relatedCats: cat.related.map((sl) => cats.find((c) => c.slug === sl)).filter(Boolean).map((c) => ({ name: c.name, href: cH(c) })) } : emptySvc,
     };

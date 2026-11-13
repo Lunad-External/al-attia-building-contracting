@@ -4,7 +4,7 @@
   const CATS = [
     {
       slug: "hvac-services", name: "HVAC & Air Conditioning Services", num: "01",
-      img: null, slot: "svc-hvac", placeholder: "HVAC / AC installation photo",
+      img: "src/assets/projects/IMG_2634.jpg", slot: "svc-hvac", placeholder: "HVAC / AC installation photo",
       short: "Installation, servicing and maintenance of air conditioning and HVAC systems for homes, offices and commercial buildings.",
       intro: "Reliable cooling is essential in the UAE climate. Our HVAC team supports the installation, servicing and maintenance of air conditioning systems for residential and commercial properties, with an emphasis on clean workmanship, clear communication and dependable aftercare.",
       metaTitle: "HVAC Contractors in UAE | AC Installation & Maintenance | Al Attia Group",
@@ -24,7 +24,7 @@
     },
     {
       slug: "aluminium-facade-works", name: "Aluminium & Facade Works", num: "02",
-      img: "src/assets/project-modern-entrance.jpg", slot: "svc-aluminium", placeholder: "Aluminium / facade photo",
+      img: "src/assets/projects/IMG_2620.jpg", slot: "svc-aluminium", placeholder: "Aluminium / facade photo",
       short: "Aluminium doors, windows and facade installation for residential and commercial buildings, supported by our own aluminium workshop.",
       intro: "Al Attia Group designs and installs aluminium and glass works for residential and commercial buildings. Our aluminium workshop supports windows, doors and facade systems, along with repair and maintenance.",
       metaTitle: "Aluminium Facade Contractors in UAE | Doors, Windows & Facades | Al Attia Group",
@@ -59,7 +59,7 @@
     },
     {
       slug: "interior-fit-out", name: "Interior Fit-Out & Decoration", num: "04",
-      img: null, slot: "svc-interior", placeholder: "Interior fit-out photo",
+      img: "src/assets/projects/IMG_2632.jpg", slot: "svc-interior", placeholder: "Interior fit-out photo",
       short: "Residential and commercial interior fit-out, decoration and renovation, from design through to handover.",
       intro: "We deliver innovative interior decor and fit-out solutions for residential and commercial spaces. Our team supports end-to-end execution, aligned with your requirements, from early planning to final handover.",
       metaTitle: "Interior Fit-Out Contractors in UAE | Residential & Commercial | Al Attia Group",
@@ -76,7 +76,7 @@
     },
     {
       slug: "kitchen-solutions", name: "Kitchen Design & Installation", num: "05",
-      img: null, slot: "svc-kitchen", placeholder: "Kitchen installation photo",
+      img: "src/assets/projects/IMG_2629.jpg", slot: "svc-kitchen", placeholder: "Kitchen installation photo",
       short: "Custom kitchen design, manufacturing and installation with premium finishing, produced in our own factory.",
       intro: "We design, manufacture and install custom kitchens with premium finishing in our own factory. From layout to installation, our team handles every stage with accuracy.",
       metaTitle: "Modular Kitchen Installation in UAE | Custom Kitchen Cabinets | Al Attia Group",
