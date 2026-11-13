@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap">
+<script src="./services-data.js"></script>
+<script src="./projects-data.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#F6F3EE;color:#1F2420;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#1F2420;text-decoration:none}
+a:hover{color:#9A6B43}
+h1,h2,h3,h4{font-family:Inter,system-ui,sans-serif;font-weight:500;letter-spacing:-0.02em;margin:0;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+summary::-webkit-details-marker{display:none}
+input,select,textarea,button{font-family:inherit}
+</style>
+</helmet>
+
+<div id="top" style="background:#F6F3EE;min-height:100vh">
+
+<header style="position:fixed;top:0;left:0;right:0;z-index:40;background:{{ hdrBg }};backdrop-filter:{{ hdrBlur }};-webkit-backdrop-filter:{{ hdrBlur }};border-bottom:{{ hdrBorder }};box-shadow:{{ hdrShadow }};transition:background .45s ease, border-color .45s ease, box-shadow .45s ease">
+  <div style="max-width:1240px;margin:0 auto;padding:0 clamp(20px,4vw,48px);height:84px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="#top" style="display:flex;align-items:center;gap:14px">
+      <span role="img" aria-label="Al Attia Group logo" style="display:flex;filter:{{ logoShadow }}"><svg viewBox="36 41 354 271" aria-hidden="true" style="height:40px;width:auto;display:block"><path d="M111 45H265A94 94 0 0 1 265 234H40C55 215 80 198 115 198H265A58 58 0 0 0 265 82H146V124H262A16 16 0 0 1 262 156H111Z" style="fill:{{ hdrInk }};transition:fill .45s ease"></path><path d="M386 200C386 238 356 264 280 273H112C80 273 55 290 40 308H290C350 308 386 270 386 200Z" style="fill:{{ hdrInk }};transition:fill .45s ease"></path></svg></span>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <span style="font-family:Inter,system-ui,sans-serif;font-size:22px;font-weight:600;line-height:1;color:{{ hdrInk }};transition:color .45s ease">Al Attia Group</span>
+        <span style="font-size:11px;color:{{ hdrSub }};letter-spacing:0.04em;transition:color .45s ease">The team who will build your dream</span>
+      </div>
+    </a>
+    <sc-if value="{{ showDesktopNav }}" hint-placeholder-val="{{ true }}">
+      <nav style="display:flex;align-items:center;gap:34px;font-size:14px;font-weight:500;text-shadow:{{ hdrShadowTxt }}">
+        <div onMouseEnter="{{ megaEnter }}" onMouseLeave="{{ megaLeave }}" style="height:84px;display:flex;align-items:center">
+          <a href="#/services" onClick="{{ megaClose }}" aria-haspopup="true" style="color:{{ svcNavColor }};display:flex;align-items:center;gap:7px;transition:color .3s ease" style-hover="color:{{ hdrHover }}">Services<span style="font-size:8px;display:inline-block;transition:transform .3s ease;transform:rotate({{ megaRot }})">▼</span></a>
+          <div style="position:absolute;left:0;right:0;top:100%;background:#FBFAF7;border-bottom:1px solid #DDD7CC;box-shadow:0 30px 60px rgba(20,24,21,0.12);opacity:{{ megaOp }};visibility:{{ megaVis }};transform:translateY({{ megaY }});transition:opacity .3s ease, transform .3s ease, visibility .3s">
+            <div style="max-width:1240px;margin:0 auto;padding:36px clamp(20px,4vw,48px) 26px">
+              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px 40px">
+                <sc-for list="{{ megaCats }}" as="c" hint-placeholder-count="6">
+                  <div style="display:grid;grid-template-rows:subgrid;grid-row:span 2;row-gap:12px;min-width:0">
+                    <a href="{{ c.href }}" onClick="{{ megaClose }}" style="font-size:15px;font-weight:600;color:#1F2420;line-height:1.3;align-self:end;padding-bottom:10px;border-bottom:1px solid #E6E0D6" style-hover="color:#9A6B43">{{ c.name }}</a>
+                    <div style="display:flex;flex-direction:column;gap:7px">
+                      <sc-for list="{{ c.items }}" as="i" hint-placeholder-count="4">
+                        <a href="{{ i.href }}" onClick="{{ megaClose }}" style="font-size:13.5px;color:#5E625C;transition:color .2s ease, transform .2s ease" style-hover="color:#9A6B43;transform:translateX(3px)">{{ i.name }}</a>
+                      </sc-for>
+                      <a href="{{ c.href }}" onClick="{{ megaClose }}" style="font-size:12.5px;font-weight:600;color:#9A6B43">{{ c.moreLabel }}</a>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="margin-top:28px;padding-top:20px;border-top:1px solid #DDD7CC;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px">
+                <p style="font-size:13.5px;color:#5E625C">HVAC, aluminium &amp; facade works, building maintenance, interior fit-out, kitchens and renovation.</p>
+                <a href="#/services" onClick="{{ megaClose }}" style="background:#1F2420;color:#F6F3EE;border-radius:10px;padding:13px 20px;font-weight:600;font-size:12.5px;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap" style-hover="background:#9A6B43;color:#fff">View All Services →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <sc-for list="{{ navRest }}" as="n" hint-placeholder-count="3">
+          <a href="{{ n.href }}" style="color:{{ n.color }};transition:color .3s ease" style-hover="color:{{ hdrHover }}">{{ n.label }}</a>
+        </sc-for>
+        <a href="#/contact" onClick="{{ openQuote }}" style="text-shadow:none;background:{{ ctaBg }};color:{{ ctaInk }};transition:background .45s ease, color .45s ease;border-radius:10px;padding:13px 22px;font-weight:600;font-size:13px;letter-spacing:0.06em;text-transform:uppercase" style-hover="background:#9A6B43;color:#fff">Get a Quote</a>
+      </nav>
+    </sc-if>
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ toggleMenu }}" aria-label="Menu" style="background:none;border:1px solid {{ hdrInk }};border-radius:10px;padding:10px 14px;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;color:{{ hdrInk }}">{{ menuLabel }}</button>
+    </sc-if>
+  </div>
+  <sc-if value="{{ showMobileMenu }}" hint-placeholder-val="{{ false }}">
+    <nav style="display:flex;flex-direction:column;border-top:1px solid #DDD7CC;padding:8px clamp(20px,4vw,48px) 20px;max-height:calc(100vh - 84px);overflow-y:auto">
+      <div style="border-bottom:1px solid #DDD7CC">
+        <button type="button" onClick="{{ toggleMSvc }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 0;background:none;border:none;font-size:16px;color:#1F2420;cursor:pointer">Services<span style="color:#9A6B43;font-size:20px;font-weight:300">{{ mSvcSign }}</span></button>
+        <sc-if value="{{ mSvcOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:0 0 12px 12px;display:flex;flex-direction:column">
+            <a href="#/services" onClick="{{ closeMenu }}" style="padding:10px 0;font-size:14px;font-weight:600;color:#9A6B43">View All Services</a>
+            <sc-for list="{{ mCats }}" as="c" hint-placeholder-count="6">
+              <div style="border-top:1px solid #E6E0D6">
+                <button type="button" onClick="{{ c.toggle }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;background:none;border:none;font-size:14.5px;font-weight:500;color:#1F2420;text-align:left;cursor:pointer"><span style="flex:1;min-width:0">{{ c.name }}</span><span style="color:#9A6B43;font-size:18px;font-weight:300">{{ c.sign }}</span></button>
+                <sc-if value="{{ c.open }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;padding:0 0 10px 12px">
+                    <a href="{{ c.href }}" onClick="{{ closeMenu }}" style="padding:7px 0;font-size:13.5px;font-weight:600;color:#9A6B43">Category overview</a>
+                    <sc-for list="{{ c.items }}" as="i" hint-placeholder-count="5">
+                      <a href="{{ i.href }}" onClick="{{ closeMenu }}" style="padding:7px 0;font-size:13.5px;color:#5E625C">{{ i.name }}</a>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+      <sc-for list="{{ navRest }}" as="n" hint-placeholder-count="3">
+        <a href="{{ n.href }}" onClick="{{ closeMenu }}" style="padding:14px 0;border-bottom:1px solid #DDD7CC;font-size:16px">{{ n.label }}</a>
+      </sc-for>
+      <a href="#/contact" onClick="{{ openQuoteMobile }}" style="margin-top:16px;background:#1F2420;color:#F6F3EE;border-radius:10px;padding:14px;text-align:center;font-weight:600;font-size:13px;letter-spacing:0.06em;text-transform:uppercase">Get a Quote</a>
+    </nav>
+  </sc-if>
+</header>
+
+<main>
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+
+<sc-if value="{{ heroSplit }}" hint-placeholder-val="{{ false }}">
+<section style="max-width:1240px;margin:0 auto;padding:calc(84px + clamp(48px,7vw,96px)) clamp(20px,4vw,48px) clamp(48px,7vw,96px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(40px,6vw,80px);align-items:center">
+  <div data-reveal="1" style="display:flex;flex-direction:column;gap:28px">
+    <h1 style="font-size:clamp(48px,6.4vw,88px);line-height:0.98;letter-spacing:-0.01em">Crafting Spaces of Distinction</h1>
+    <p style="font-size:18px;line-height:1.65;color:#5E625C;max-width:520px">Al Attia Group delivers exceptional construction, fit-out, and finishing solutions— where precision meets artistry.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px">
+      <a href="#contact" style="background:#1F2420;color:#F6F3EE;border-radius:10px;padding:18px 28px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#9A6B43;color:#fff">Request Consultation</a>
+      <a href="#portfolio" style="border:1px solid #1F2420;border-radius:10px;padding:18px 28px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#1F2420" style-hover="background:#1F2420;color:#F6F3EE">View Portfolio</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #DDD7CC;margin-top:12px;padding-top:24px;gap:16px">
+      <div><div style="font-family:Inter,system-ui,sans-serif;font-size:40px;line-height:1">8+</div><div style="margin-top:8px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#5E625C">Service Verticals</div></div>
+      <div style="border-left:1px solid #DDD7CC;padding-left:16px"><div style="font-family:Inter,system-ui,sans-serif;font-size:40px;line-height:1">15+</div><div style="margin-top:8px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#5E625C">Years Excellence</div></div>
+      <div style="border-left:1px solid #DDD7CC;padding-left:16px"><div style="font-family:Inter,system-ui,sans-serif;font-size:40px;line-height:1">100%</div><div style="margin-top:8px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#5E625C">Client Focused</div></div>
+    </div>
+  </div>
+  <div style="position:relative;min-height:clamp(420px,52vw,640px)">
+    <div data-reveal="1" style="position:absolute;inset:0 0 0 clamp(0px,4vw,48px);overflow:hidden;border-radius:20px"><img src="src/assets/project-villa-front.jpg" alt="Classical villa by Al Attia Group" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"></div>
+    <div style="position:absolute;left:0;bottom:40px;border-radius:14px;background:#F6F3EE;padding:20px 24px;max-width:260px;border:1px solid #DDD7CC">
+      <p style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#9A6B43;font-weight:700">Luxury Villa Construction</p>
+      <p style="margin-top:6px;font-family:Inter,system-ui,sans-serif;font-size:24px">Classical Excellence</p>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ heroVideo }}" hint-placeholder-val="{{ false }}">
+<section style="position:relative;height:100vh;min-height:640px;overflow:hidden;background:#141815;color:#F6F3EE;display:flex;flex-direction:column">
+  <sc-if value="{{ hasVideo }}" hint-placeholder-val="{{ false }}">
+    <video ref="{{ heroVideoRef }}" src="{{ videoSrc }}" poster="src/assets/project-villa-front.jpg" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
+  </sc-if>
+  <sc-if value="{{ noVideo }}" hint-placeholder-val="{{ true }}">
+    <sc-for list="{{ heroSlides }}" as="sl" hint-placeholder-count="0">
+      <div role="img" aria-label="{{ sl.alt }}" style="position:absolute;inset:0;background-image:{{ sl.bg }};background-size:cover;background-position:center top;transform-origin:center top;opacity:{{ sl.op }};transform:scale({{ sl.scale }});transition:{{ sl.tr }};will-change:opacity,transform"></div>
+    </sc-for>
+  
+  </sc-if>
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 60% at 22% 50%,rgba(20,24,21,0.4) 0%,rgba(20,24,21,0) 100%),linear-gradient(180deg,rgba(20,24,21,0.55) 0%,rgba(20,24,21,0.48) 45%,rgba(20,24,21,0.8) 100%);z-index:1"></div>
+  <div style="position:relative;z-index:2;flex:1;display:flex;align-items:center;max-width:1240px;width:100%;margin:0 auto;padding:84px clamp(20px,4vw,48px) 0">
+    <sc-if value="{{ showHeroTitle }}" hint-placeholder-val="{{ true }}">
+      <h1 style="font-size:clamp(52px,7vw,112px);line-height:0.98;font-weight:400;letter-spacing:-0.035em;text-align:left;text-shadow:0 2px 28px rgba(0,0,0,0.4)"><span style="display:block;white-space:nowrap">Crafting Spaces</span><span style="display:block;white-space:nowrap">of Distinction</span></h1>
+    </sc-if>
+  </div>
+  <div style="position:relative;z-index:2;text-shadow:0 2px 24px rgba(0,0,0,0.4);max-width:1240px;width:100%;margin:0 auto;padding:0 clamp(20px,4vw,48px) clamp(36px,5vw,56px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:32px 48px">
+    <div style="display:flex;flex-direction:column;align-items:{{ heroCtaAlign }};gap:22px;width:100%">
+      <div style="display:flex;flex-wrap:wrap;justify-content:{{ heroCtaAlign }};gap:12px;text-shadow:none;align-self:stretch">
+        <a href="#contact" style="background:#F6F3EE;color:#1F2420;border-radius:10px;padding:18px 28px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#9A6B43;color:#fff">Request Consultation</a>
+        <a href="#portfolio" style="border:1px solid rgba(246,243,238,0.7);color:#F6F3EE;backdrop-filter:blur(6px);border-radius:10px;padding:18px 28px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">View Portfolio</a>
+      </div>
+      <sc-if value="{{ noVideo }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;gap:10px;align-self:center">
+          <sc-for list="{{ heroSlides }}" as="sl" hint-placeholder-count="5">
+            <button type="button" onClick="{{ sl.go }}" aria-label="{{ sl.label }}" style="width:{{ sl.dotW }};height:4px;border-radius:999px;border:none;padding:0;cursor:pointer;background:{{ sl.dotBg }};transition:width .6s ease, background .6s ease"></button>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ heroFull }}" hint-placeholder-val="{{ false }}">
+<section style="position:relative;min-height:min(86vh,820px);display:flex;align-items:flex-end;overflow:hidden">
+  <img src="src/assets/project-villa-front.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)">
+  <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(20,24,21,0.82) 0%,rgba(20,24,21,0.45) 60%,rgba(20,24,21,0.2) 100%)"></div>
+  <div style="position:relative;pointer-events:none;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(64px,10vw,140px)) clamp(20px,4vw,48px) 64px;color:#F6F3EE;display:flex;flex-direction:column;gap:28px">
+    <h1 style="font-size:clamp(48px,7vw,104px);line-height:0.96;max-width:820px">Crafting Spaces of Distinction</h1>
+    <p style="font-size:18px;line-height:1.65;max-width:540px;color:#E6E1D8">Al Attia Group delivers exceptional construction, fit-out, and finishing solutions— where precision meets artistry.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;pointer-events:auto">
+      <a href="#contact" style="background:#F6F3EE;color:#1F2420;border-radius:10px;padding:18px 28px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase">Request Consultation</a>
+      <a href="#portfolio" style="border:1px solid #F6F3EE;color:#F6F3EE;border-radius:10px;padding:18px 28px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase">View Portfolio</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,160px));gap:24px;border-top:1px solid rgba(246,243,238,0.3);padding-top:24px;margin-top:16px">
+      <div><div style="font-family:Inter,system-ui,sans-serif;font-size:40px;line-height:1">8+</div><div style="margin-top:8px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#E6E1D8">Service Verticals</div></div>
+      <div><div style="font-family:Inter,system-ui,sans-serif;font-size:40px;line-height:1">15+</div><div style="margin-top:8px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#E6E1D8">Years Excellence</div></div>
+      <div><div style="font-family:Inter,system-ui,sans-serif;font-size:40px;line-height:1">100%</div><div style="margin-top:8px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#E6E1D8">Client Focused</div></div>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+
+
+<section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,128px) clamp(20px,4vw,48px) 0">
+  <div data-reveal="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px 64px;align-items:end">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <h2 style="font-size:clamp(44px,6vw,80px);line-height:1">Luxury Living</h2>
+    </div>
+    <p style="font-size:18px;line-height:1.65;color:#5E625C">Where architectural vision meets flawless execution</p>
+  </div>
+  <div style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px">
+    <sc-for list="{{ panels }}" as="p" hint-placeholder-count="3">
+      <figure data-reveal="1" style="margin:0;display:flex;flex-direction:column;gap:16px">
+        <div style="border-radius:16px;overflow:hidden;aspect-ratio:4/5"><div role="img" aria-label="{{ p.title }}" style="width:100%;height:100%;background-image:{{ p.bg }};background-size:cover;background-position:center;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"></div></div>
+        <figcaption style="display:flex;flex-direction:column;gap:4px;border-top:1px solid #1F2420;padding-top:14px">
+          <span style="font-family:Inter,system-ui,sans-serif;font-size:28px">{{ p.title }}</span>
+        </figcaption>
+      </figure>
+    </sc-for>
+  </div>
+</section>
+
+<section style="max-width:1240px;margin:clamp(56px,7vw,96px) auto 0;padding:0 clamp(20px,4vw,48px)">
+  <div data-reveal="1" ref="{{ statsRef }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border-top:1px solid #1F2420;border-bottom:1px solid #DDD7CC">
+    <sc-for list="{{ bigStats }}" as="s" hint-placeholder-count="4">
+      <div style="padding:36px 8px;display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:Inter,system-ui,sans-serif;font-size:clamp(52px,5.5vw,72px);line-height:1;color:#9A6B43;font-variant-numeric:tabular-nums">{{ s.n }}</span>
+        <span style="font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#5E625C;font-weight:600">{{ s.l }}</span>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="services" style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0;scroll-margin-top:84px">
+  <div data-reveal="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px 64px;align-items:end">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <h2 style="font-size:clamp(44px,5.4vw,72px);line-height:1">Our Services</h2>
+    </div>
+    <p style="font-size:18px;line-height:1.65;color:#5E625C">Integrated capabilities across contracting, fit-out, manufacturing, and maintenance.</p>
+  </div>
+  <div style="margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));column-gap:64px;border-top:1px solid #1F2420">
+    <sc-for list="{{ services }}" as="s" hint-placeholder-count="8">
+      <div data-reveal="1" style="display:grid;grid-template-columns:56px 1fr;gap:20px;padding:30px 0;border-bottom:1px solid #DDD7CC">
+        <span style="font-family:Inter,system-ui,sans-serif;font-size:22px;color:#9A6B43;padding-top:2px">{{ s.num }}</span>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <h3 style="font-size:28px;line-height:1.1">{{ s.title }}</h3>
+          <p style="font-size:15px;line-height:1.65;color:#5E625C">{{ s.desc }}</p>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+  <div data-reveal="1" style="margin-top:56px;border-radius:20px;background:#E9E3D9;padding:clamp(28px,4vw,44px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <h3 style="font-size:32px">Need the right service fast?</h3>
+      <p style="font-size:15px;color:#5E625C">Contact us via WhatsApp for instant service matching.</p>
+    </div>
+    <a href="{{ defaultWa }}" target="_blank" rel="noreferrer" style="display:inline-flex;align-items:center;gap:10px;background:#9A6B43;color:#fff;border-radius:10px;padding:18px 28px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#1F2420;color:#fff"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>Contact on WhatsApp</a>
+  </div>
+</section>
+
+<section id="about" style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0;scroll-margin-top:84px">
+  <div style="margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:clamp(40px,6vw,80px);align-items:start">
+    <div data-reveal="1" style="position:relative">
+      <div style="overflow:hidden;border-radius:20px;aspect-ratio:4/5"><img src="src/assets/project-modern-entrance.jpg" alt="Premium Entrance Design" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"></div>
+      <div style="margin-top:14px;display:flex;justify-content:space-between;gap:12px;border-top:1px solid #1F2420;padding-top:14px">
+        <span style="font-family:Inter,system-ui,sans-serif;font-size:22px">Premium Entrance Design</span>
+      </div>
+    </div>
+    <div data-reveal="1" style="display:flex;flex-direction:column;gap:28px">
+      <h2 style="font-size:clamp(40px,4.8vw,64px);line-height:1.02">About Al Attia Group</h2>
+      <p style="font-size:18px;line-height:1.7;color:#5E625C">We provide comprehensive integrated solutions across general contracting and building maintenance— driven by quality, innovation, and professionalism.</p>
+      <div style="display:flex;flex-direction:column;border-top:1px solid #DDD7CC">
+        <div style="display:grid;grid-template-columns:110px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid #DDD7CC">
+          <span style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#9A6B43;padding-top:4px">Vision</span>
+          <p style="font-size:16px;line-height:1.6">To be the preferred choice in contracting and maintenance through innovative, high-quality services.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:110px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid #DDD7CC">
+          <span style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#9A6B43;padding-top:4px">Mission</span>
+          <p style="font-size:16px;line-height:1.6">Deliver effective solutions across contracting, furniture, kitchens, aluminium, and interior/exterior decor.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:110px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid #DDD7CC">
+          <span style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:#9A6B43;padding-top:4px">Values</span>
+          <p style="font-size:16px;line-height:1.6">Quality • Innovation • Professionalism • Customer First</p>
+        </div>
+      </div>
+      <blockquote style="margin:8px 0 0;display:flex;flex-direction:column;gap:10px">
+        <p style="font-family:Inter,system-ui,sans-serif;font-size:clamp(26px,2.6vw,34px);line-height:1.25;font-style:italic">"Quality standards in every detail — from design to delivery."</p>
+        <footer style="font-size:13px;color:#5E625C;letter-spacing:0.06em">— Al Attia Group</footer>
+      </blockquote>
+    </div>
+  </div>
+
+  <div style="margin-top:clamp(56px,7vw,96px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:20px">
+    <div data-reveal="1" style="border-radius:20px;background:#1F2420;color:#F3EFE8;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:22px">
+      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px">
+        <sc-for list="{{ benefits }}" as="b" hint-placeholder-count="4">
+          <li style="display:flex;gap:14px;align-items:baseline;font-size:16px;line-height:1.5;border-bottom:1px solid rgba(243,239,232,0.14);padding-bottom:14px"><span style="width:6px;height:6px;background:#C9A27E;flex-shrink:0;transform:translateY(-2px)"></span>{{ b }}</li>
+        </sc-for>
+      </ul>
+      <a href="#contact" style="margin-top:auto;background:#F6F3EE;color:#1F2420;border-radius:10px;padding:16px;text-align:center;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">Schedule a Site Visit</a>
+    </div>
+    <div data-reveal="1" style="grid-column:span 1;display:flex;flex-direction:column;gap:20px">
+      <div style="border-radius:20px;background:#FBFAF7;border:1px solid #DDD7CC;padding:28px;display:flex;flex-direction:column;gap:16px;flex:1">
+        <p style="font-family:Inter,system-ui,sans-serif;font-size:24px;line-height:1.35;font-style:italic">"Professional team and excellent finishing. Communication was clear from day one."</p>
+        <p style="font-size:13px;color:#9A6B43;font-weight:600">— Client, Ajman</p>
+      </div>
+      <div style="border-radius:20px;background:#FBFAF7;border:1px solid #DDD7CC;padding:28px;display:flex;flex-direction:column;gap:16px;flex:1">
+        <p style="font-family:Inter,system-ui,sans-serif;font-size:24px;line-height:1.35;font-style:italic">"Fast response on maintenance and very clean execution."</p>
+        <p style="font-size:13px;color:#9A6B43;font-weight:600">— Facility Owner</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process" style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0;scroll-margin-top:84px">
+  <div data-reveal="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px 64px;align-items:end">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <h2 style="font-size:clamp(44px,5.4vw,72px);line-height:1">Our Process</h2>
+    </div>
+    <p style="font-size:18px;line-height:1.65;color:#5E625C">A predictable workflow designed for speed without sacrificing quality.</p>
+  </div>
+  <div style="margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:0 32px">
+    <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+      <div data-reveal="1" style="border-top:2px solid #1F2420;padding-top:24px;padding-bottom:32px;display:flex;flex-direction:column;gap:14px">
+        <span style="font-family:Inter,system-ui,sans-serif;font-size:64px;line-height:0.9;color:#9A6B43">{{ s.num }}</span>
+        <h3 style="font-size:30px">{{ s.title }}</h3>
+        <p style="font-size:15px;line-height:1.65;color:#5E625C">{{ s.desc }}</p>
+      </div>
+    </sc-for>
+  </div>
+  <div data-reveal="1" style="margin-top:40px;border-radius:20px;position:relative;min-height:440px;display:flex;align-items:center;overflow:hidden">
+    <img src="src/assets/project-villa-landscaping.jpg" alt="Luxury Villa Development" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)">
+    <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(20,24,21,0.85) 0%,rgba(20,24,21,0.55) 55%,rgba(20,24,21,0.15) 100%)"></div>
+    <div style="position:relative;pointer-events:none;padding:clamp(32px,6vw,80px);max-width:620px;color:#F6F3EE;display:flex;flex-direction:column;gap:18px">
+      <h3 style="font-size:clamp(36px,4.4vw,56px);line-height:1.04">From Vision to Reality</h3>
+      <p style="font-size:17px;line-height:1.65;color:#E6E1D8">Every project is a testament to our commitment to quality, precision, and client satisfaction.</p>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio" style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0;scroll-margin-top:84px">
+  <div data-reveal="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px 64px;align-items:end">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <h2 style="font-size:clamp(44px,5.4vw,72px);line-height:1">Our Signature Projects</h2>
+    </div>
+    <p style="font-size:18px;line-height:1.65;color:#5E625C">A curated selection of our finest work across construction, fit-out, and finishing.</p>
+  </div>
+  <div style="margin-top:56px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:{{ projGap }}">
+    <sc-for list="{{ projects }}" as="p" hint-placeholder-count="5">
+      <a href="{{ p.href }}" data-reveal="1" style="display:flex;flex-direction:column;gap:16px;color:#1F2420;grid-column:{{ p.span }}">
+        <div style="border-radius:16px;overflow:hidden;aspect-ratio:{{ p.ratio }}"><div role="img" aria-label="{{ p.title }}" style="width:100%;height:100%;background-image:{{ p.bg }};background-size:cover;background-position:center;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"></div></div>
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:8px 16px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-family:Inter,system-ui,sans-serif;font-size:clamp(17px,2.6vw,30px);line-height:1.1">{{ p.title }}</span>
+          </div>
+          <span style="font-size:13px;font-weight:600;color:#9A6B43;white-space:nowrap">View Project →</span>
+        </div>
+      </a>
+    </sc-for>
+  </div>
+  <div style="margin-top:56px;display:flex;justify-content:center">
+    <a href="#contact" onClick="{{ openQuote }}" style="background:#1F2420;color:#F6F3EE;border-radius:10px;padding:18px 32px;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#9A6B43;color:#fff">Start Your Project</a>
+  </div>
+</section>
+
+<section id="faq" style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px);scroll-margin-top:84px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:40px clamp(40px,6vw,96px);align-items:start">
+  <div data-reveal="1" style="display:flex;flex-direction:column;gap:18px">
+    <h2 style="font-size:clamp(44px,5.4vw,72px);line-height:1">FAQ</h2>
+    <p style="font-size:18px;line-height:1.65;color:#5E625C">Common questions clients ask before requesting a quote.</p>
+  </div>
+  <div data-reveal="1" style="grid-column:span 1;border-top:1px solid #1F2420">
+    <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="4">
+      <div style="border-bottom:1px solid #DDD7CC">
+        <button type="button" onClick="{{ f.toggle }}" style="width:100%;background:none;border:none;padding:26px 0;display:flex;justify-content:space-between;align-items:center;gap:24px;text-align:left;cursor:pointer;color:#1F2420">
+          <span style="font-family:Inter,system-ui,sans-serif;font-size:24px;line-height:1.25">{{ f.q }}</span>
+          <span style="font-size:24px;font-weight:300;color:#9A6B43;flex-shrink:0;width:20px;text-align:center">{{ f.sign }}</span>
+        </button>
+        <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+          <p style="padding:0 40px 26px 0;font-size:15.5px;line-height:1.7;color:#5E625C">{{ f.a }}</p>
+        </sc-if>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="contact" style="background:#E9E3D9;scroll-margin-top:84px">
+  <div style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,128px) clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(40px,6vw,80px);align-items:start">
+    <div data-reveal="1" style="display:flex;flex-direction:column;gap:28px">
+      <h2 style="font-size:clamp(44px,5.4vw,72px);line-height:1">Contact</h2>
+      <p style="font-size:18px;line-height:1.65;color:#5E625C">Get a quote, schedule a site visit, or ask a quick question on WhatsApp.</p>
+      <div style="border-top:1px solid #1F2420">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding:18px 0;border-bottom:1px solid #CFC8BB"><span style="font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#5E625C;font-weight:600">Main Office</span><a href="tel:+971542111113" style="font-weight:600">+971 54 211 1113</a></div>
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding:18px 0;border-bottom:1px solid #CFC8BB"><span style="font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#5E625C;font-weight:600">Factory</span><a href="tel:+971503779937" style="font-weight:600">+971 50 377 9937 • +971 6 704 6991</a></div>
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding:18px 0;border-bottom:1px solid #CFC8BB"><span style="font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#5E625C;font-weight:600">Email</span><a href="mailto:info@alattiagroup.com" style="font-weight:600">info@alattiagroup.com</a></div>
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding:18px 0;border-bottom:1px solid #CFC8BB"><span style="font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#5E625C;font-weight:600">Hours</span><span style="font-weight:600">08:00 – 17:00</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <p style="font-family:Inter,system-ui,sans-serif;font-size:26px">Professional Service</p>
+        <p style="font-size:15px;line-height:1.7;color:#5E625C">Al Attia Group delivers quality construction, maintenance, and manufacturing services across the UAE with professional execution and reliable aftercare.</p>
+      </div>
+    </div>
+    <form data-reveal="1" onSubmit="{{ submitContact }}" style="border-radius:20px;background:#FBFAF7;padding:clamp(24px,3.4vw,44px);display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <h3 style="font-size:32px">Send an enquiry</h3>
+        <p style="font-size:14px;color:#5E625C">This form sends your message directly to WhatsApp.</p>
+      </div>
+      <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase">Name</span><input required="{{ true }}" value="{{ cName }}" onChange="{{ setCName }}" placeholder="Your name" style="border:none;border-bottom:1px solid #1F2420;background:transparent;padding:12px 0;font-size:15px;color:#1F2420;outline:none"></label>
+      <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase">Phone</span><input required="{{ true }}" value="{{ cPhone }}" onChange="{{ setCPhone }}" placeholder="+971..." style="border:none;border-bottom:1px solid #1F2420;background:transparent;padding:12px 0;font-size:15px;color:#1F2420;outline:none"></label>
+      <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase">Service</span>
+        <select value="{{ cService }}" onChange="{{ setCService }}" style="border:none;border-bottom:1px solid #1F2420;background:transparent;padding:12px 0;font-size:15px;color:#1F2420;outline:none;border-radius:0">
+          <sc-for list="{{ serviceOptions }}" as="o" hint-placeholder-count="8"><option value="{{ o }}">{{ o }}</option></sc-for>
+        </select>
+      </label>
+      <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase">Message</span><textarea rows="4" value="{{ cMessage }}" onChange="{{ setCMessage }}" placeholder="Tell us what you need..." style="border:none;border-bottom:1px solid #1F2420;background:transparent;padding:12px 0;font-size:15px;color:#1F2420;outline:none;resize:vertical"></textarea></label>
+      <div style="margin-top:8px">
+        <button type="submit" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#1F2420;color:#F6F3EE;border:none;border-radius:10px;padding:17px;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer" style-hover="background:#9A6B43"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>Send on WhatsApp</button>
+      </div>
+    </form>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+<section style="position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;background:#141815">
+  <div role="img" aria-label="Al Attia Plaza 2 building" style="position:absolute;inset:0;background-image:url('src/assets/hero-alattia-plaza.png');background-size:cover;background-position:center top"></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(20,24,21,0.55) 0%,rgba(20,24,21,0.35) 40%,rgba(20,24,21,0.85) 100%)"></div>
+  <div style="position:relative;pointer-events:none;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(56px,8vw,112px)) clamp(20px,4vw,48px) clamp(48px,6vw,80px);color:#F6F3EE;display:flex;flex-direction:column;gap:22px;text-shadow:0 2px 24px rgba(0,0,0,0.35)">
+    <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#D9D3C7;pointer-events:auto"><a href="#top" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Home</a><span style="opacity:0.6">›</span><span style="color:#fff;white-space:nowrap">About Us</span></nav>
+    <h1 style="font-size:clamp(42px,6vw,88px);line-height:1;letter-spacing:-0.035em;font-weight:400;max-width:900px">About Al Attia Group</h1>
+    <p style="font-size:clamp(18px,1.6vw,22px);line-height:1.5;max-width:640px;color:#E6E1D8">Building Better Spaces Through Engineering, Expertise &amp; Commitment.</p>
+  </div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:clamp(40px,6vw,88px);align-items:start">
+  <div data-reveal="1" style="display:flex;flex-direction:column;gap:24px">
+    <h2 style="font-size:clamp(38px,4.6vw,60px);line-height:1.04">Who We Are</h2>
+    <p style="font-size:19px;line-height:1.7;color:#1F2420">Al Attia Group provides comprehensive engineering, contracting and building solutions, catering to the diverse requirements of residential and commercial properties across the UAE.</p>
+    <p style="font-size:16.5px;line-height:1.75;color:#5E625C">With a focus on quality workmanship, practical solutions and customer satisfaction, we offer a broad range of services spanning HVAC installation and maintenance, aluminium and facade works, building maintenance, interior fit-out, kitchen solutions and property renovation.</p>
+    <p style="font-size:16.5px;line-height:1.75;color:#5E625C">From maintaining efficient air conditioning systems to transforming interiors and undertaking building improvement works, we tailor every solution to the requirements of the project, whether it is a private villa, an apartment, an office or a commercial building.</p>
+    <p style="font-size:16.5px;line-height:1.75;color:#5E625C">Based in Ajman, our team brings together contracting and maintenance capabilities with in-house manufacturing for aluminium works, kitchens and furniture. This allows us to coordinate design, production and installation closely, keep communication clear from the first site visit to handover, and support clients with reliable aftercare.</p>
+  </div>
+  <div data-reveal="1" style="display:flex;flex-direction:column;gap:28px">
+    <div style="overflow:hidden;border-radius:20px;aspect-ratio:4/3;background:#E6E0D6"><div style="width:100%;height:100%;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"><image-slot id="about-overview" shape="rect" src="src/assets/hero-modern-villa.png" placeholder="Company / project photo"></image-slot></div></div>
+    <div style="display:flex;flex-direction:column;border-top:1px solid #1F2420">
+      <sc-for list="{{ aboutCats }}" as="c" hint-placeholder-count="6">
+        <a href="{{ c.href }}" style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:17px 0;border-bottom:1px solid #DDD7CC;color:#1F2420;font-size:16px;font-weight:500;transition:color .25s ease, padding .25s ease" style-hover="color:#9A6B43;padding-left:6px">{{ c.name }}<span style="color:#9A6B43">→</span></a>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0">
+  <div data-reveal="1" style="display:flex;flex-direction:column;gap:16px;max-width:720px">
+    <h2 style="font-size:clamp(38px,4.6vw,60px);line-height:1.04">Mission, Vision &amp; Values</h2>
+  </div>
+  <div style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;align-items:stretch">
+    <article data-reveal="1" style="background:#1F2420;color:#F3EFE8;border-radius:20px;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:20px;transition:transform .5s ease, box-shadow .5s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 50px rgba(20,24,21,0.18)">
+      <span style="width:56px;height:56px;border-radius:14px;display:grid;place-items:center;background:rgba(201,162,126,0.16)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D9B48F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1.2"></circle></svg></span>
+      <h3 style="font-size:28px">Our Mission</h3>
+      <p style="font-size:16px;line-height:1.7;color:#C8C3B8">To deliver reliable, high-quality engineering, contracting and building solutions that meet our clients' requirements through professional execution, attention to detail and a commitment to customer satisfaction.</p>
+    </article>
+    <article data-reveal="1" style="background:#E9E3D9;border-radius:20px;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:20px;transition:transform .5s ease, box-shadow .5s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 50px rgba(20,24,21,0.10)">
+      <span style="width:56px;height:56px;border-radius:14px;display:grid;place-items:center;background:#F6F3EE"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9A6B43" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+      <h3 style="font-size:28px">Our Vision</h3>
+      <p style="font-size:16px;line-height:1.7;color:#5E625C">To become a trusted name in engineering, contracting and building solutions by continuously improving our capabilities, embracing innovation and building long-term relationships with our clients.</p>
+    </article>
+    <article data-reveal="1" style="grid-column:1 / -1;background:#FBFAF7;border:1px solid #DDD7CC;border-radius:20px;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:24px;transition:transform .5s ease, box-shadow .5s ease, border-color .5s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 50px rgba(20,24,21,0.10);border-color:#C9A27E">
+      <span style="width:56px;height:56px;border-radius:14px;display:grid;place-items:center;background:#EFE6DB"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9A6B43" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg></span>
+      <h3 style="font-size:28px">Our Core Values</h3>
+      <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:0 28px">
+        <sc-for list="{{ coreValues }}" as="v" hint-placeholder-count="5">
+          <li style="padding:16px 0 4px;border-top:2px solid #1F2420;display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:600">{{ v.t }}</span><span style="font-size:14.5px;line-height:1.6;color:#5E625C">{{ v.d }}</span></li>
+        </sc-for>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0;scroll-margin-top:84px">
+  <div data-reveal="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px 64px;align-items:end">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <h2 style="font-size:clamp(44px,5.4vw,72px);line-height:1">Our Process</h2>
+    </div>
+    <p style="font-size:18px;line-height:1.65;color:#5E625C">A predictable workflow designed for speed without sacrificing quality.</p>
+  </div>
+  <div style="margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:0 32px">
+    <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+      <div data-reveal="1" style="border-top:2px solid #1F2420;padding-top:24px;padding-bottom:32px;display:flex;flex-direction:column;gap:14px">
+        <span style="font-family:Inter,system-ui,sans-serif;font-size:64px;line-height:0.9;color:#9A6B43">{{ s.num }}</span>
+        <h3 style="font-size:30px">{{ s.title }}</h3>
+        <p style="font-size:15px;line-height:1.65;color:#5E625C">{{ s.desc }}</p>
+      </div>
+    </sc-for>
+  </div>
+  <div data-reveal="1" style="margin-top:40px;border-radius:20px;position:relative;min-height:440px;display:flex;align-items:center;overflow:hidden">
+    <img src="src/assets/project-villa-landscaping.jpg" alt="Luxury Villa Development" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)">
+    <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(20,24,21,0.85) 0%,rgba(20,24,21,0.55) 55%,rgba(20,24,21,0.15) 100%)"></div>
+    <div style="position:relative;pointer-events:none;padding:clamp(32px,6vw,80px);max-width:620px;color:#F6F3EE;display:flex;flex-direction:column;gap:18px">
+      <h3 style="font-size:clamp(36px,4.4vw,56px);line-height:1.04">From Vision to Reality</h3>
+      <p style="font-size:17px;line-height:1.65;color:#E6E1D8">Every project is a testament to our commitment to quality, precision, and client satisfaction.</p>
+    </div>
+  </div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px)">
+  <div data-reveal="1" style="background:#1F2420;color:#F3EFE8;border-radius:24px;padding:clamp(32px,5vw,64px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:28px">
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:640px">
+      <h2 style="font-size:clamp(30px,3.4vw,44px);line-height:1.1">Let's Discuss Your Project</h2>
+      <p style="font-size:16px;line-height:1.7;color:#C8C3B8">Get a quote, schedule a site visit, or ask a quick question on WhatsApp.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px">
+      <a href="#contact" style="background:#F6F3EE;color:#1F2420;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#9A6B43;color:#fff">Contact Our Team</a>
+      <a href="#/services" style="border:1px solid rgba(246,243,238,0.6);color:#F6F3EE;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Explore Services</a>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+<section style="position:relative;min-height:clamp(420px,56vh,540px);display:flex;align-items:flex-end;overflow:hidden;background:#141815">
+  <div role="img" aria-label="Al Attia Group building" style="position:absolute;inset:0;background-image:url('src/assets/hero-commercial-building.png');background-size:cover;background-position:center top"></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(20,24,21,0.6) 0%,rgba(20,24,21,0.55) 45%,rgba(20,24,21,0.88) 100%)"></div>
+  <div style="position:relative;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(40px,5vw,64px)) clamp(20px,4vw,48px) clamp(40px,5vw,56px);color:#F6F3EE;display:flex;flex-direction:column;gap:18px;text-shadow:0 2px 24px rgba(0,0,0,0.35)">
+    <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#D9D3C7"><a href="#top" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Home</a><span style="opacity:0.6">›</span><span style="color:#fff;white-space:nowrap">Contact Us</span></nav>
+    <h1 style="font-size:clamp(40px,5.4vw,76px);line-height:1;letter-spacing:-0.035em;font-weight:400">Get in Touch</h1>
+    <p style="font-size:clamp(18px,1.6vw,22px);line-height:1.5">Let's Discuss Your Next Project.</p>
+    <p style="font-size:16.5px;line-height:1.7;max-width:700px;color:#E6E1D8">Whether you're looking for HVAC solutions, building maintenance, aluminium and facade works, interior fit-out or renovation services, Al Attia Group is ready to understand your requirements and assist you.</p>
+  </div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,4vw,48px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(32px,5vw,64px);align-items:start">
+  <div data-reveal="1" style="display:flex;flex-direction:column;gap:22px">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <h2 style="font-size:clamp(30px,3.4vw,44px);line-height:1.1">Contact Information</h2>
+      <p style="font-size:16px;line-height:1.7;color:#5E625C">Reach out to our team for enquiries, project discussions and service-related assistance. We would be happy to hear from you.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;gap:18px;align-items:flex-start;background:#FBFAF7;border:1px solid #DDD7CC;border-radius:16px;padding:22px"><span style="flex-shrink:0;width:48px;height:48px;border-radius:12px;background:#EFE6DB;display:grid;place-items:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A6B43" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg></span><div style="display:flex;flex-direction:column;gap:6px;min-width:0"><h3 style="font-size:12px;font-weight:600;color:#5E625C;letter-spacing:0.04em">Office Address</h3><p style="font-size:16px;font-weight:600;line-height:1.5">Al Attia Plaza, Al Rawdha 3, Ajman, U.A.E</p></div></div>
+      <div style="display:flex;gap:18px;align-items:flex-start;background:#FBFAF7;border:1px solid #DDD7CC;border-radius:16px;padding:22px"><span style="flex-shrink:0;width:48px;height:48px;border-radius:12px;background:#EFE6DB;display:grid;place-items:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A6B43" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h3.5l1.8 4.5-2.3 1.4a11 11 0 0 0 5.1 5.1l1.4-2.3L19 13.5V17a2 2 0 0 1-2 2A15 15 0 0 1 3 5a2 2 0 0 1 2-2z"></path></svg></span><div style="display:flex;flex-direction:column;gap:10px;min-width:0"><h3 style="font-size:12px;font-weight:600;color:#5E625C;letter-spacing:0.04em">Contact Numbers</h3>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:12.5px;color:#5E625C">Main Office</span><a href="tel:+971542111113" style="font-size:16px;font-weight:600;color:#1F2420" style-hover="color:#9A6B43">+971 54 211 1113</a></div>
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:12.5px;color:#5E625C">Factory</span><div style="display:flex;flex-wrap:wrap;gap:4px 18px"><a href="tel:+971503779937" style="font-size:16px;font-weight:600;color:#1F2420;white-space:nowrap" style-hover="color:#9A6B43">+971 50 377 9937</a><a href="tel:+97167046991" style="font-size:16px;font-weight:600;color:#1F2420;white-space:nowrap" style-hover="color:#9A6B43">+971 6 704 6991</a></div></div>
+      </div></div>
+      <div style="display:flex;gap:18px;align-items:flex-start;background:#FBFAF7;border:1px solid #DDD7CC;border-radius:16px;padding:22px"><span style="flex-shrink:0;width:48px;height:48px;border-radius:12px;background:#EFE6DB;display:grid;place-items:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A6B43" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3.5 6.5l8.5 6.5 8.5-6.5"></path></svg></span><div style="display:flex;flex-direction:column;gap:6px;min-width:0"><h3 style="font-size:12px;font-weight:600;color:#5E625C;letter-spacing:0.04em">Email Address</h3><a href="mailto:info@alattiagroup.com" style="font-size:16px;font-weight:600;color:#1F2420;word-break:break-word" style-hover="color:#9A6B43">info@alattiagroup.com</a></div></div>
+    </div>
+    
+    <p style="font-size:14px;color:#5E625C">Learn more <a href="#/about" style="color:#9A6B43;font-weight:600">about Al Attia Group</a> or explore <a href="#/services" style="color:#9A6B43;font-weight:600">our services</a>.</p>
+  </div>
+
+  <div data-reveal="1" style="background:#FFFFFF;border:1px solid #DDD7CC;border-radius:20px;padding:clamp(24px,3.4vw,44px);display:flex;flex-direction:column;gap:22px">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <h2 style="font-size:clamp(28px,3vw,38px);line-height:1.1">Send Us an Enquiry</h2>
+      <p style="font-size:15.5px;line-height:1.7;color:#5E625C">Have a project in mind or looking for a specific service? Fill out the form below and share your requirements with us. Our team will get in touch with you.</p>
+    </div>
+    <sc-if value="{{ cfDone }}" hint-placeholder-val="{{ false }}">
+      <div role="status" style="background:#EAF4EE;border:1px solid #B9DBC6;border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:8px">
+        <h3 style="font-size:20px;color:#1F5C3A">Thank you, WhatsApp has opened with your enquiry.</h3>
+        <p style="font-size:15px;line-height:1.6;color:#2F4F3C">Please press send in WhatsApp to share your message. Our team will review your requirements and get in touch with you shortly.</p>
+        <button type="button" onClick="{{ cfReset }}" style="align-self:flex-start;margin-top:6px;background:none;border:none;padding:0;color:#1F5C3A;font-size:14px;font-weight:600;text-decoration:underline;cursor:pointer">Send another enquiry</button>
+      </div>
+    </sc-if>
+    <sc-if value="{{ cfShowForm }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ cfSubmit }}" noValidate="{{ true }}" style="display:flex;flex-direction:column;gap:18px">
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13px;font-weight:600">Company Name <span style="color:#9A6B43">*</span></span><input type="text" name="company" value="{{ cf.company }}" onChange="{{ cfSet.company }}" placeholder="Your company name" autoComplete="organization" style="width:100%;border:1px solid {{ cfErr.companyBc }};background:#FBFAF7;border-radius:10px;padding:14px 16px;font-size:15px;color:#1F2420;outline:none;transition:border-color .2s ease"><sc-if value="{{ cfErr.companyOn }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size:12.5px;color:#B03A2E">{{ cfErr.company }}</span></sc-if></label>
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13px;font-weight:600">Name <span style="color:#9A6B43">*</span></span><input type="text" name="name" value="{{ cf.name }}" onChange="{{ cfSet.name }}" placeholder="Your full name" autoComplete="name" style="width:100%;border:1px solid {{ cfErr.nameBc }};background:#FBFAF7;border-radius:10px;padding:14px 16px;font-size:15px;color:#1F2420;outline:none;transition:border-color .2s ease"><sc-if value="{{ cfErr.nameOn }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size:12.5px;color:#B03A2E">{{ cfErr.name }}</span></sc-if></label>
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13px;font-weight:600">Number <span style="color:#9A6B43">*</span></span><input type="tel" name="phone" value="{{ cf.phone }}" onChange="{{ cfSet.phone }}" placeholder="+971 50 123 4567" autoComplete="tel" inputMode="tel" style="width:100%;border:1px solid {{ cfErr.phoneBc }};background:#FBFAF7;border-radius:10px;padding:14px 16px;font-size:15px;color:#1F2420;outline:none;transition:border-color .2s ease"><sc-if value="{{ cfErr.phoneOn }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size:12.5px;color:#B03A2E">{{ cfErr.phone }}</span></sc-if></label>
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13px;font-weight:600">Email Address <span style="color:#9A6B43">*</span></span><input type="email" name="email" value="{{ cf.email }}" onChange="{{ cfSet.email }}" placeholder="you@company.com" autoComplete="email" style="width:100%;border:1px solid {{ cfErr.emailBc }};background:#FBFAF7;border-radius:10px;padding:14px 16px;font-size:15px;color:#1F2420;outline:none;transition:border-color .2s ease"><sc-if value="{{ cfErr.emailOn }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size:12.5px;color:#B03A2E">{{ cfErr.email }}</span></sc-if></label>
+        <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13px;font-weight:600">Message <span style="color:#9A6B43">*</span></span><textarea name="message" rows="5" value="{{ cf.message }}" onChange="{{ cfSet.message }}" placeholder="Tell us about your project or enquiry" style="width:100%;border:1px solid {{ cfErr.messageBc }};background:#FBFAF7;border-radius:10px;padding:14px 16px;font-size:15px;color:#1F2420;outline:none;transition:border-color .2s ease;resize:vertical"></textarea><sc-if value="{{ cfErr.messageOn }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font-size:12.5px;color:#B03A2E">{{ cfErr.message }}</span></sc-if></label>
+        <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><label>Website<input type="text" name="website" tabIndex="-1" autoComplete="off" value="{{ cf.hp }}" onChange="{{ cfSet.hp }}"></label></div>
+        <sc-if value="{{ cfFailed }}" hint-placeholder-val="{{ false }}">
+          <div role="alert" style="background:#FBEDEB;border:1px solid #EBC3BD;border-radius:12px;padding:16px;font-size:14px;line-height:1.6;color:#7A2A20">{{ cfErrMsg }}</div>
+        </sc-if>
+        <button type="submit" disabled="{{ cfLoading }}" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#1F2420;color:#F6F3EE;border:none;border-radius:10px;padding:18px;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;opacity:{{ cfBtnOp }}" style-hover="background:#9A6B43"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>{{ cfBtnLabel }}</button>
+        <p style="font-size:12.5px;color:#5E625C">Fields marked <span style="color:#9A6B43">*</span> are required.</p>
+      </form>
+    </sc-if>
+  </div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px)">
+  <div data-reveal="1" style="display:flex;flex-direction:column;gap:12px;margin-bottom:28px">
+    <h2 style="font-size:clamp(30px,3.4vw,44px);line-height:1.1">Find Our Location</h2>
+    <p style="font-size:16px;line-height:1.7;color:#5E625C">Visit Al Attia Group or use the map below to locate our office.</p>
+  </div>
+  <div style="border-radius:20px;overflow:hidden;border:1px solid #DDD7CC;height:{{ mapH }};background:#E6E0D6">
+    <iframe title="Al Attia Group location on Google Maps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3604.6517437538587!2d55.5053711!3d25.382985699999992!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ef5f711aa98edbf%3A0x30ec9a662c8b2f8d!2zQUxBVFRJQSBCdWlsZGluZyBDb250cmFjdGluZyDYp9mE2LnYt9mK2Kkg2YTZhdmC2KfZiNmE2KfYqiDYp9mE2KjZhtin2KE!5e0!3m2!1sen!2sae!4v1794550992409!5m2!1sen!2sae" width="600" height="450" style="border:0;width:100%;height:100%;display:block" allowFullScreen="{{ true }}" loading="lazy" referrerPolicy="strict-origin-when-cross-origin"></iframe>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isProjects }}" hint-placeholder-val="{{ false }}">
+<section style="position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;background:#141815">
+  <div role="img" aria-label="Al Attia Group project" style="position:absolute;inset:0;background-image:url('src/assets/hero-modern-villa.png');background-size:cover;background-position:center top"></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(20,24,21,0.55) 0%,rgba(20,24,21,0.35) 40%,rgba(20,24,21,0.88) 100%)"></div>
+  <div style="position:relative;pointer-events:none;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(56px,8vw,112px)) clamp(20px,4vw,48px) clamp(48px,6vw,80px);color:#F6F3EE;display:flex;flex-direction:column;gap:22px;text-shadow:0 2px 24px rgba(0,0,0,0.35)">
+    <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#D9D3C7;pointer-events:auto"><a href="#top" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Home</a><span style="opacity:0.6">›</span><span style="color:#fff;white-space:nowrap">Projects</span></nav>
+    <h1 style="font-size:clamp(42px,6vw,88px);line-height:1;letter-spacing:-0.035em;font-weight:400">Our Projects</h1>
+    <p style="font-size:clamp(18px,1.6vw,22px);line-height:1.5;color:#F6F3EE">Explore Our Work. Discover Our Expertise.</p>
+    <p style="font-size:16.5px;line-height:1.7;max-width:680px;color:#E6E1D8">Take a closer look at our work across HVAC, aluminium and facade installations, building maintenance, interior fit-out, kitchen solutions and renovation. Explore our projects and discover how we turn requirements into practical, well-executed solutions.</p>
+  </div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px) 0">
+  <div style="display:grid;grid-template-columns:repeat({{ projCols }},minmax(0,1fr));gap:48px 24px">
+    <sc-for list="{{ projList }}" as="pr" hint-placeholder-count="9">
+      <a data-reveal="1" href="{{ pr.href }}" aria-label="{{ pr.name }}" style="display:flex;flex-direction:column;gap:16px;color:#1F2420">
+        <div style="position:relative;overflow:hidden;border-radius:16px;aspect-ratio:4/3;background:#E6E0D6">
+          <div role="img" aria-label="{{ pr.name }}" style="position:absolute;inset:0;background-image:{{ pr.bg }};background-size:cover;background-position:center;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"></div>
+          <div style="position:absolute;inset:0;pointer-events:none;background:rgba(20,24,21,0);transition:background .6s ease"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+          <div style="display:flex;flex-direction:column;gap:5px;min-width:0;flex:1">
+            <h3 style="font-size:21px;line-height:1.25">{{ pr.name }}</h3>
+            <span style="font-size:13.5px;color:#5E625C">{{ pr.location }}</span>
+          </div>
+          <span style="color:#9A6B43;font-size:18px;line-height:1.3">→</span>
+        </div>
+      </a>
+    </sc-for>
+  </div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px)">
+  <div data-reveal="1" style="background:#1F2420;color:#F3EFE8;border-radius:24px;padding:clamp(32px,5vw,64px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:28px">
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:640px">
+      <h2 style="font-size:clamp(30px,3.4vw,44px);line-height:1.1">Start Your Project</h2>
+      <p style="font-size:16px;line-height:1.7;color:#C8C3B8">Planning a similar project? Share your project type, size, location and timeline, and our team will arrange a site visit and detailed quotation.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px">
+      <a href="{{ projWa }}" target="_blank" rel="noreferrer" style="display:inline-flex;align-items:center;gap:10px;background:#9A6B43;color:#fff;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>Enquire on WhatsApp</a>
+      <a href="#contact" style="border:1px solid rgba(246,243,238,0.6);color:#F6F3EE;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Contact Our Team</a>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isProject }}" hint-placeholder-val="{{ false }}">
+<section style="max-width:1240px;margin:0 auto;padding:calc(84px + 28px) clamp(20px,4vw,48px) 0">
+  <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#5E625C;margin-bottom:20px"><a href="#top" style="color:#5E625C;white-space:nowrap" style-hover="color:#9A6B43">Home</a><span style="opacity:0.6">›</span><a href="#/projects" style="color:#5E625C;white-space:nowrap" style-hover="color:#9A6B43">Projects</a><span style="opacity:0.6">›</span><span style="color:#1F2420;white-space:nowrap">{{ proj.name }}</span></nav>
+  <div role="img" aria-label="{{ proj.name }}" style="width:100%;aspect-ratio:{{ projRatio }};border-radius:20px;background-color:#E6E0D6;background-image:{{ proj.bg }};background-size:cover;background-position:center top"></div>
+  <div data-reveal="1" style="margin-top:clamp(32px,4vw,48px);display:flex;flex-direction:column;gap:10px;padding-bottom:clamp(28px,3vw,40px);border-bottom:1px solid #DDD7CC">
+    <h1 style="font-size:clamp(36px,4.6vw,64px);line-height:1.04;letter-spacing:-0.03em;font-weight:500">{{ proj.name }}</h1>
+    <dl style="margin:12px 0 0;display:flex;flex-wrap:wrap;gap:16px 48px">
+      <div style="display:flex;flex-direction:column;gap:4px"><dt style="font-size:12.5px;color:#5E625C">Location</dt><dd style="margin:0;font-size:16px;font-weight:600">{{ proj.location }}</dd></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><dt style="font-size:12.5px;color:#5E625C">Category</dt><dd style="margin:0;font-size:16px;font-weight:600">{{ proj.categoryName }}</dd></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><dt style="font-size:12.5px;color:#5E625C">Client</dt><dd style="margin:0;font-size:16px;font-weight:600">{{ proj.client }}</dd></div>
+    </dl>
+  </div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(20px,4vw,48px) 0">
+  <div data-reveal="1" style="display:flex;flex-direction:column;gap:16px;max-width:860px">
+    <h2 style="font-size:clamp(26px,2.8vw,36px)">Project Overview</h2>
+    <sc-for list="{{ proj.paras }}" as="para" hint-placeholder-count="5"><p style="font-size:17px;line-height:1.8;color:#5E625C">{{ para }}</p></sc-for>
+  </div>
+  
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(20px,4vw,48px) 0">
+  <h2 data-reveal="1" style="font-size:clamp(26px,2.8vw,36px)">Project Gallery</h2>
+  <div style="margin-top:28px;display:grid;grid-template-columns:repeat({{ projCols }},minmax(0,1fr));gap:20px">
+    <sc-for list="{{ proj.gallery }}" as="g" hint-placeholder-count="3">
+      <div data-reveal="1" style="overflow:hidden;border-radius:16px;aspect-ratio:4/3;background:#E6E0D6"><div style="width:100%;height:100%;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"><image-slot id="{{ g.id }}" shape="rect" placeholder="Additional project image"></image-slot></div></div>
+    </sc-for>
+  </div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px) 0">
+  <div data-reveal="1" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px">
+    <h2 style="font-size:clamp(30px,3.4vw,44px)">More Projects</h2>
+    <a href="#/projects" style="font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#9A6B43">View all projects →</a>
+  </div>
+  <div style="margin-top:36px;display:grid;grid-template-columns:repeat({{ projCols }},minmax(0,1fr));gap:48px 24px">
+    <sc-for list="{{ projMore }}" as="pr" hint-placeholder-count="3">
+      <a data-reveal="1" href="{{ pr.href }}" aria-label="{{ pr.name }}" style="display:flex;flex-direction:column;gap:16px;color:#1F2420">
+        <div style="position:relative;overflow:hidden;border-radius:16px;aspect-ratio:4/3;background:#E6E0D6">
+          <div role="img" aria-label="{{ pr.name }}" style="position:absolute;inset:0;background-image:{{ pr.bg }};background-size:cover;background-position:center;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"></div>
+          <div style="position:absolute;inset:0;pointer-events:none;background:rgba(20,24,21,0);transition:background .6s ease"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+          <div style="display:flex;flex-direction:column;gap:5px;min-width:0;flex:1">
+            <h3 style="font-size:21px;line-height:1.25">{{ pr.name }}</h3>
+            <span style="font-size:13.5px;color:#5E625C">{{ pr.location }}</span>
+          </div>
+          <span style="color:#9A6B43;font-size:18px;line-height:1.3">→</span>
+        </div>
+      </a>
+    </sc-for>
+  </div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px)">
+  <div data-reveal="1" style="background:#1F2420;color:#F3EFE8;border-radius:24px;padding:clamp(32px,5vw,64px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:28px">
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:640px">
+      <h2 style="font-size:clamp(30px,3.4vw,44px);line-height:1.1">Start Your Project</h2>
+      <p style="font-size:16px;line-height:1.7;color:#C8C3B8">Planning a similar project? Share your project type, size, location and timeline, and our team will arrange a site visit and detailed quotation.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px">
+      <a href="{{ projWa }}" target="_blank" rel="noreferrer" style="display:inline-flex;align-items:center;gap:10px;background:#9A6B43;color:#fff;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>Enquire on WhatsApp</a>
+      <a href="#contact" style="border:1px solid rgba(246,243,238,0.6);color:#F6F3EE;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Contact Our Team</a>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isLanding }}" hint-placeholder-val="{{ false }}">
+<section style="position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;background:#141815">
+  <div style="position:absolute;inset:0"><image-slot id="svc-landing-hero" shape="rect" src="src/assets/project-villa-landscaping.jpg" placeholder="Corporate construction / engineering photo"></image-slot></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(20,24,21,0.88) 0%,rgba(20,24,21,0.6) 55%,rgba(20,24,21,0.25) 100%)"></div>
+  <div style="position:relative;pointer-events:none;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(56px,8vw,112px)) clamp(20px,4vw,48px) clamp(48px,6vw,72px);color:#F6F3EE;display:flex;flex-direction:column;gap:22px">
+    <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#D9D3C7;pointer-events:auto"><a href="#top" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Home</a><span style="opacity:0.6">›</span><span style="color:#fff;white-space:nowrap">Services</span></nav>
+    <h1 style="font-size:clamp(40px,5.6vw,76px);line-height:1.02;max-width:900px">Comprehensive Engineering, Contracting &amp; Building Solutions</h1>
+    <p style="font-size:18px;line-height:1.65;max-width:640px;color:#E6E1D8">Explore our comprehensive range of HVAC, aluminium and facade works, building maintenance, interior fit-out, kitchen solutions and renovation services. We deliver practical, reliable solutions tailored to residential and commercial requirements.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;pointer-events:auto">
+      <a href="#svc-grid" onClick="{{ scrollToGrid }}" style="background:#F6F3EE;color:#1F2420;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#9A6B43;color:#fff">Explore Our Services</a>
+      <a href="#contact" style="border:1px solid rgba(246,243,238,0.7);color:#F6F3EE;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Request a Consultation</a>
+    </div>
+  </div>
+</section>
+<section id="svc-grid" style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px) 0;scroll-margin-top:84px">
+  <div data-reveal="1" style="display:flex;flex-direction:column;gap:16px;max-width:720px">
+    <h2 style="font-size:clamp(38px,4.6vw,60px);line-height:1.04">Our Service Categories</h2>
+  </div>
+  <div style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:28px">
+    <sc-for list="{{ landingCats }}" as="c" hint-placeholder-count="6">
+      <article data-reveal="1" style="display:flex;flex-direction:column;background:#FBFAF7;border:1px solid #DDD7CC;border-radius:20px;overflow:hidden;transition:transform .5s ease, box-shadow .5s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 50px rgba(20,24,21,0.10)">
+        <div style="overflow:hidden;aspect-ratio:4/3;background:#E6E0D6"><div style="width:100%;height:100%;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"><image-slot id="{{ c.slot }}" shape="rect" src="{{ c.src }}" placeholder="{{ c.ph }}"></image-slot></div></div>
+        <div style="padding:26px;display:flex;flex-direction:column;gap:14px;flex:1">
+          <span style="font-size:12px;font-weight:700;color:#9A6B43;letter-spacing:0.1em">{{ c.num }}</span>
+          <h3 style="font-size:23px;line-height:1.2"><a href="{{ c.href }}" style="color:#1F2420">{{ c.name }}</a></h3>
+          <p style="font-size:14.5px;line-height:1.65;color:#5E625C">{{ c.short }}</p>
+          <ul style="list-style:none;margin:0;padding:14px 0 0;border-top:1px solid #E6E0D6;display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{ c.highlights }}" as="hl" hint-placeholder-count="3">
+              <li style="display:flex;gap:10px;align-items:baseline;font-size:13.5px"><span style="width:5px;height:5px;border-radius:50%;background:#9A6B43;flex-shrink:0;transform:translateY(-2px)"></span><a href="{{ hl.href }}" style="color:#1F2420" style-hover="color:#9A6B43">{{ hl.name }}</a></li>
+            </sc-for>
+          </ul>
+          <a href="{{ c.href }}" style="margin-top:auto;padding-top:8px;font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#9A6B43" style-hover="color:#1F2420">View Services →</a>
+        </div>
+      </article>
+    </sc-for>
+  </div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0">
+  <div data-reveal="1" style="display:flex;flex-direction:column;gap:16px;max-width:720px">
+    <h2 style="font-size:clamp(38px,4.6vw,60px);line-height:1.04">Why Choose Al Attia Group?</h2>
+  </div>
+  <div style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:0 40px;border-top:1px solid #1F2420">
+    <sc-for list="{{ why }}" as="w" hint-placeholder-count="6">
+      <div data-reveal="1" style="padding:30px 0;border-bottom:1px solid #DDD7CC;display:grid;grid-template-columns:48px 1fr;gap:16px">
+        <span style="font-size:15px;color:#9A6B43;font-weight:600">{{ w.num }}</span>
+        <div style="display:flex;flex-direction:column;gap:8px"><h3 style="font-size:20px">{{ w.t }}</h3><p style="font-size:14.5px;line-height:1.65;color:#5E625C">{{ w.d }}</p></div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px)">
+  <div data-reveal="1" style="background:#1F2420;color:#F3EFE8;border-radius:24px;padding:clamp(32px,5vw,64px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:28px">
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:640px">
+      <h2 style="font-size:clamp(30px,3.4vw,44px);line-height:1.1">Looking for the Right Solution for Your Project?</h2>
+      <p style="font-size:16px;line-height:1.7;color:#C8C3B8">Whether you require HVAC installation, building maintenance, aluminium works, interior fit-out or complete renovation, our team is ready to discuss your requirements.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px"><a href="#contact" style="background:#F6F3EE;color:#1F2420;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#9A6B43;color:#fff">Contact Our Team</a></div>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isCat }}" hint-placeholder-val="{{ false }}">
+<section style="position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;background:#141815">
+  <div style="position:absolute;inset:0"><image-slot id="{{ cat.slot }}" shape="rect" src="{{ cat.src }}" placeholder="{{ cat.ph }}"></image-slot></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(20,24,21,0.88) 0%,rgba(20,24,21,0.6) 55%,rgba(20,24,21,0.25) 100%)"></div>
+  <div style="position:relative;pointer-events:none;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(56px,8vw,112px)) clamp(20px,4vw,48px) clamp(48px,6vw,72px);color:#F6F3EE;display:flex;flex-direction:column;gap:22px">
+    <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#D9D3C7;pointer-events:auto"><a href="#top" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Home</a><span style="opacity:0.6">›</span><a href="#/services" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Services</a><span style="opacity:0.6">›</span><span style="color:#fff;white-space:nowrap">{{ cat.name }}</span></nav>
+    <h1 style="font-size:clamp(40px,5.6vw,76px);line-height:1.02;max-width:900px">{{ cat.name }}</h1>
+    <p style="font-size:18px;line-height:1.65;max-width:660px;color:#E6E1D8">{{ cat.intro }}</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;pointer-events:auto">
+      <a href="{{ cat.wa }}" target="_blank" rel="noreferrer" style="background:#F6F3EE;color:#1F2420;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#9A6B43;color:#fff">Request a Consultation</a>
+      <a href="tel:+971542111113" style="border:1px solid rgba(246,243,238,0.7);color:#F6F3EE;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Call Now</a>
+    </div>
+  </div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px) 0">
+  <div data-reveal="1" style="display:flex;flex-direction:column;gap:16px"><h2 style="font-size:clamp(36px,4.4vw,56px);line-height:1.04">Services We Provide</h2></div>
+  <div style="margin-top:44px;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:20px">
+    <sc-for list="{{ cat.services }}" as="x" hint-placeholder-count="6">
+      <a data-reveal="1" href="{{ x.href }}" style="display:flex;flex-direction:column;gap:12px;background:#FBFAF7;border:1px solid #DDD7CC;border-radius:20px;padding:28px;color:#1F2420;transition:transform .5s ease, box-shadow .5s ease, border-color .5s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 50px rgba(20,24,21,0.10);border-color:#C9A27E">
+        <span style="font-size:12px;font-weight:700;color:#9A6B43;letter-spacing:0.1em">{{ x.num }}</span>
+        <h3 style="font-size:21px;line-height:1.25">{{ x.name }}</h3>
+        <p style="font-size:14.5px;line-height:1.65;color:#5E625C">{{ x.intro }}</p>
+        <span style="margin-top:auto;padding-top:6px;font-size:12.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#9A6B43">View Service →</span>
+      </a>
+    </sc-for>
+  </div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px) 0">
+  <div data-reveal="1" style="display:flex;flex-direction:column;gap:16px"><h2 style="font-size:clamp(36px,4.4vw,56px);line-height:1.04">Project Gallery</h2></div>
+  <div style="margin-top:44px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px">
+    <sc-for list="{{ cat.gallery }}" as="g" hint-placeholder-count="3">
+      <div data-reveal="1"><div style="overflow:hidden;border-radius:16px;aspect-ratio:4/3;background:#E6E0D6;"><div style="width:100%;height:100%;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"><image-slot id="{{ g.id }}" shape="rect" src="{{ g.src }}" placeholder="{{ g.ph }}"></image-slot></div></div></div>
+    </sc-for>
+  </div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px) 0">
+  <div data-reveal="1" style="display:flex;flex-direction:column;gap:16px"><h2 style="font-size:clamp(36px,4.4vw,56px);line-height:1.04">Related Services</h2></div>
+  <div style="margin-top:44px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px">
+    <sc-for list="{{ cat.related }}" as="c" hint-placeholder-count="3">
+      <a data-reveal="1" href="{{ c.href }}" style="display:flex;flex-direction:column;gap:14px;color:#1F2420">
+        <div style="overflow:hidden;border-radius:16px;aspect-ratio:16/10;background:#E6E0D6"><div style="width:100%;height:100%;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"><image-slot id="{{ c.slot }}" shape="rect" src="{{ c.src }}" placeholder="{{ c.ph }}"></image-slot></div></div>
+        <h3 style="font-size:22px">{{ c.name }}</h3>
+        <p style="font-size:14.5px;line-height:1.6;color:#5E625C">{{ c.short }}</p>
+        <span style="font-size:12.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#9A6B43">View Services →</span>
+      </a>
+    </sc-for>
+  </div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px)">
+  <div data-reveal="1" style="background:#1F2420;color:#F3EFE8;border-radius:24px;padding:clamp(32px,5vw,64px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:28px">
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:640px">
+      <h2 style="font-size:clamp(30px,3.4vw,44px);line-height:1.1">{{ cat.ctaTitle }}</h2>
+      <p style="font-size:16px;line-height:1.7;color:#C8C3B8">Share your project type, size, location and timeline. Our team will review your requirements and arrange a site visit and detailed quotation where needed.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px"><a href="{{ cat.wa }}" target="_blank" rel="noreferrer" style="background:#9A6B43;color:#fff;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Enquire on WhatsApp</a><a href="#contact" style="border:1px solid rgba(246,243,238,0.6);color:#F6F3EE;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Contact Our Team</a></div>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isSvc }}" hint-placeholder-val="{{ false }}">
+<section style="position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;background:#141815">
+  <div style="position:absolute;inset:0"><image-slot id="{{ svc.heroId }}" shape="rect" src="{{ svc.src }}" placeholder="{{ svc.ph }}"></image-slot></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(20,24,21,0.88) 0%,rgba(20,24,21,0.6) 55%,rgba(20,24,21,0.25) 100%)"></div>
+  <div style="position:relative;pointer-events:none;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(56px,8vw,112px)) clamp(20px,4vw,48px) clamp(48px,6vw,72px);color:#F6F3EE;display:flex;flex-direction:column;gap:22px">
+    <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#D9D3C7;pointer-events:auto"><a href="#top" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Home</a><span style="opacity:0.6">›</span><a href="#/services" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Services</a><span style="opacity:0.6">›</span><a href="{{ svc.catHref }}" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">{{ svc.catName }}</a><span style="opacity:0.6">›</span><span style="color:#fff;white-space:nowrap">{{ svc.name }}</span></nav>
+    <h1 style="font-size:clamp(38px,5vw,68px);line-height:1.04;max-width:900px">{{ svc.name }}</h1>
+    <p style="font-size:18px;line-height:1.65;max-width:640px;color:#E6E1D8">{{ svc.intro }}</p>
+  </div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(40px,6vw,80px);align-items:start">
+  <div style="display:flex;flex-direction:column;gap:48px">
+    <div data-reveal="1" style="display:flex;flex-direction:column;gap:16px">
+      <h2 style="font-size:clamp(30px,3.4vw,42px)">Service Overview</h2>
+      <p style="font-size:17px;line-height:1.75;color:#5E625C">{{ svc.overview }}</p>
+    </div>
+    <div data-reveal="1" style="display:flex;flex-direction:column;gap:18px">
+      <h2 style="font-size:clamp(30px,3.4vw,42px)">Scope of Work</h2>
+      <ul style="list-style:none;margin:0;padding:0;border-top:1px solid #1F2420">
+        <sc-for list="{{ svc.scope }}" as="b" hint-placeholder-count="4">
+          <li style="display:flex;gap:14px;align-items:baseline;padding:16px 0;border-bottom:1px solid #DDD7CC;font-size:16px;line-height:1.5"><span style="width:6px;height:6px;border-radius:50%;background:#9A6B43;flex-shrink:0;transform:translateY(-2px)"></span>{{ b }}</li>
+        </sc-for>
+      </ul>
+    </div>
+    <div data-reveal="1" style="display:flex;flex-direction:column;gap:18px">
+      <h2 style="font-size:clamp(30px,3.4vw,42px)">Applications</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <sc-for list="{{ svc.apps }}" as="a" hint-placeholder-count="3">
+          <span style="border:1px solid #CFC8BB;background:#FBFAF7;border-radius:999px;padding:9px 18px;font-size:14px">{{ a }}</span>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  <aside data-reveal="1" style="position:sticky;top:108px;background:#1F2420;color:#F3EFE8;border-radius:20px;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:18px">
+    <h3 style="font-size:28px;line-height:1.15">Discuss {{ svc.name }} with our team</h3>
+    <p style="font-size:15px;line-height:1.65;color:#C8C3B8">Send us your project details and we will get back to you with next steps, a site visit where needed, and a transparent quotation.</p>
+    <a href="{{ svc.wa }}" target="_blank" rel="noreferrer" style="background:#9A6B43;color:#fff;text-align:center;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Enquire on WhatsApp</a>
+    <a href="tel:+971542111113" style="border:1px solid rgba(246,243,238,0.4);color:#F6F3EE;text-align:center;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Call 054 211 1113</a>
+    <a href="#contact" style="font-size:14px;color:#D9B48F;text-align:center;text-decoration:underline">Use the enquiry form</a>
+  </aside>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,48px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:20px">
+  <div data-reveal="1"><div style="overflow:hidden;border-radius:16px;aspect-ratio:4/3;background:#E6E0D6;"><div style="width:100%;height:100%;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"><image-slot id="{{ svc.imgA }}" shape="rect" src="{{ svc.src }}" placeholder="{{ svc.ph }}"></image-slot></div></div></div>
+  <div data-reveal="1"><div style="overflow:hidden;border-radius:16px;aspect-ratio:4/3;background:#E6E0D6;"><div style="width:100%;height:100%;transition:transform 1.4s cubic-bezier(.22,.61,.36,1)" style-hover="transform:scale(1.06)"><image-slot id="{{ svc.imgB }}" shape="rect" src="" placeholder="{{ svc.ph }}"></image-slot></div></div></div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px) 0">
+  <div data-reveal="1" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px">
+    <div style="display:flex;flex-direction:column;gap:16px"><h2 style="font-size:clamp(34px,4vw,52px);line-height:1.04">Related Services</h2></div>
+    <a href="{{ svc.catHref }}" style="font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#9A6B43">View all in this category →</a>
+  </div>
+  <div style="margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px">
+    <sc-for list="{{ svc.related }}" as="x" hint-placeholder-count="3">
+      <a data-reveal="1" href="{{ x.href }}" style="display:flex;flex-direction:column;gap:12px;background:#FBFAF7;border:1px solid #DDD7CC;border-radius:20px;padding:26px;color:#1F2420;transition:transform .5s ease, box-shadow .5s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 50px rgba(20,24,21,0.10)">
+        <h3 style="font-size:20px;line-height:1.25">{{ x.name }}</h3>
+        <p style="font-size:14.5px;line-height:1.6;color:#5E625C">{{ x.intro }}</p>
+        <span style="margin-top:auto;font-size:12.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#9A6B43">View Service →</span>
+      </a>
+    </sc-for>
+  </div>
+  <div style="margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+    <span style="font-size:13px;color:#5E625C;margin-right:6px">Other categories:</span>
+    <sc-for list="{{ svc.relatedCats }}" as="c" hint-placeholder-count="3">
+      <a href="{{ c.href }}" style="border:1px solid #CFC8BB;border-radius:999px;padding:8px 16px;font-size:13.5px;color:#1F2420" style-hover="border-color:#9A6B43;color:#9A6B43">{{ c.name }}</a>
+    </sc-for>
+  </div>
+</section>
+<section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px)">
+  <div data-reveal="1" style="background:#1F2420;color:#F3EFE8;border-radius:24px;padding:clamp(32px,5vw,64px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:28px">
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:640px">
+      <h2 style="font-size:clamp(30px,3.4vw,44px);line-height:1.1">Ready to discuss {{ svc.name }}?</h2>
+      <p style="font-size:16px;line-height:1.7;color:#C8C3B8">Share your project type, size, location and timeline. Our team will review your requirements and arrange a site visit and detailed quotation where needed.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px"><a href="{{ svc.wa }}" target="_blank" rel="noreferrer" style="background:#9A6B43;color:#fff;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Enquire on WhatsApp</a><a href="#contact" style="border:1px solid rgba(246,243,238,0.6);color:#F6F3EE;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Contact Our Team</a></div>
+  </div>
+</section>
+</sc-if>
+</main>
+
+
+<sc-if value="{{ quoteOpen }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-modal="true" aria-labelledby="quote-title" style="position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:16px">
+    <div onClick="{{ closeQuote }}" style="position:absolute;inset:0;background:rgba(20,24,21,0.6);backdrop-filter:blur(4px);opacity:{{ quoteOp }};transition:opacity .35s ease"></div>
+    <div style="position:relative;width:100%;display:flex;justify-content:center;opacity:{{ quoteOp }};transform:translateY({{ quoteY }}) scale({{ quoteS }});transition:opacity .35s ease, transform .45s cubic-bezier(.22,.61,.36,1)">
+      <form onSubmit="{{ submitContact }}" style="position:relative;width:100%;max-width:560px;max-height:calc(100vh - 32px);overflow-y:auto;border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,0.35);background:#FBFAF7;padding:clamp(24px,3.4vw,44px);display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px"><h2 id="quote-title" style="font-size:32px">Send an enquiry</h2><button type="button" onClick="{{ closeQuote }}" aria-label="Close" style="flex-shrink:0;width:40px;height:40px;border-radius:10px;border:1px solid #CFC8BB;background:none;font-size:22px;line-height:1;color:#1F2420;cursor:pointer" style-hover="border-color:#1F2420">×</button></div>
+        <p style="font-size:14px;color:#5E625C">This form sends your message directly to WhatsApp.</p>
+      </div>
+      <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase">Name</span><input required="{{ true }}" value="{{ cName }}" onChange="{{ setCName }}" placeholder="Your name" style="border:none;border-bottom:1px solid #1F2420;background:transparent;padding:12px 0;font-size:15px;color:#1F2420;outline:none"></label>
+      <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase">Phone</span><input required="{{ true }}" value="{{ cPhone }}" onChange="{{ setCPhone }}" placeholder="+971..." style="border:none;border-bottom:1px solid #1F2420;background:transparent;padding:12px 0;font-size:15px;color:#1F2420;outline:none"></label>
+      <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase">Service</span>
+        <select value="{{ cService }}" onChange="{{ setCService }}" style="border:none;border-bottom:1px solid #1F2420;background:transparent;padding:12px 0;font-size:15px;color:#1F2420;outline:none;border-radius:0">
+          <sc-for list="{{ serviceOptions }}" as="o" hint-placeholder-count="8"><option value="{{ o }}">{{ o }}</option></sc-for>
+        </select>
+      </label>
+      <label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase">Message</span><textarea rows="4" value="{{ cMessage }}" onChange="{{ setCMessage }}" placeholder="Tell us what you need..." style="border:none;border-bottom:1px solid #1F2420;background:transparent;padding:12px 0;font-size:15px;color:#1F2420;outline:none;resize:vertical"></textarea></label>
+      <div style="margin-top:8px">
+        <button type="submit" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#1F2420;color:#F6F3EE;border:none;border-radius:10px;padding:17px;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer" style-hover="background:#9A6B43"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>Send on WhatsApp</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</sc-if>
+
+<footer ref="{{ footerRef }}" style="background:#1F2420;color:#C8C3B8">
+  <div style="max-width:1240px;margin:0 auto;padding:64px clamp(20px,4vw,48px) 48px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:40px 64px">
+    <div style="display:flex;flex-direction:column;gap:22px;max-width:460px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span style="display:flex"><svg viewBox="36 41 354 271" aria-hidden="true" style="height:36px;width:auto;display:block"><path d="M111 45H265A94 94 0 0 1 265 234H40C55 215 80 198 115 198H265A58 58 0 0 0 265 82H146V124H262A16 16 0 0 1 262 156H111Z" style="fill:#F3EFE8;transition:fill .45s ease"></path><path d="M386 200C386 238 356 264 280 273H112C80 273 55 290 40 308H290C350 308 386 270 386 200Z" style="fill:#F3EFE8;transition:fill .45s ease"></path></svg></span>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <span style="font-family:Inter,system-ui,sans-serif;font-size:24px;color:#F3EFE8;line-height:1">Al Attia Group</span>
+          <span style="font-size:12.5px">General contracting • Maintenance • Manufacturing • Fit-out</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px 32px">
+        <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:24px;font-weight:600;color:#F3EFE8">15+</span><span style="font-size:13.5px">Years of Excellence</span></div>
+        <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:24px;font-weight:600;color:#F3EFE8">250+</span><span style="font-size:13.5px">Projects Delivered</span></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;padding-top:20px;border-top:1px solid rgba(243,239,232,0.12)">
+        <span style="font-size:13px;font-weight:600;color:#F3EFE8">Follow us on</span>
+        <div style="display:flex;gap:10px">
+          <a href="#" aria-label="Instagram" style="width:42px;height:42px;border-radius:10px;border:1px solid rgba(243,239,232,0.25);display:grid;place-items:center;color:#FFFFFF;transition:background .3s ease, border-color .3s ease" style-hover="background:rgba(243,239,232,0.1);border-color:rgba(243,239,232,0.6)"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.4-1.3.8-.4.4-.6.8-.8 1.3-.2.4-.3 1-.4 2.1C2.6 8.5 2.6 8.9 2.6 12s0 3.5.1 4.7c.1 1.1.2 1.7.4 2.1.2.5.4.9.8 1.3.4.4.8.6 1.3.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.4 1.3-.8.4-.4.6-.8.8-1.3.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.3-.4-.4-.8-.6-1.3-.8-.4-.2-1-.3-2.1-.4C15.5 4 15.1 4 12 4zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm0 8a3.1 3.1 0 1 0 0-6.2 3.1 3.1 0 0 0 0 6.2zm5.1-8.3a1.15 1.15 0 1 1 0-2.3 1.15 1.15 0 0 1 0 2.3z"></path></svg></a>
+          <a href="#" aria-label="LinkedIn" style="width:42px;height:42px;border-radius:10px;border:1px solid rgba(243,239,232,0.25);display:grid;place-items:center;color:#FFFFFF;transition:background .3s ease, border-color .3s ease" style-hover="background:rgba(243,239,232,0.1);border-color:rgba(243,239,232,0.6)"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3v-11zm6.5 0h3.8v1.5h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4v-11z"></path></svg></a>
+          <a href="#" aria-label="Facebook" style="width:42px;height:42px;border-radius:10px;border:1px solid rgba(243,239,232,0.25);display:grid;place-items:center;color:#FFFFFF;transition:background .3s ease, border-color .3s ease" style-hover="background:rgba(243,239,232,0.1);border-color:rgba(243,239,232,0.6)"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.6c0-.87.25-1.46 1.5-1.46h1.55V4.47c-.27-.04-1.2-.12-2.27-.12-2.25 0-3.78 1.37-3.78 3.89v2.26H8v3h2.5V21h3z"></path></svg></a>
+        </div>
+      </div>
+    </div>
+    <nav aria-label="Services" style="display:flex;flex-direction:column;gap:14px;min-width:220px">
+      <h2 style="font-size:15px;font-weight:600;color:#F3EFE8;letter-spacing:0">Services</h2>
+      <sc-for list="{{ footerCats }}" as="fc" hint-placeholder-count="6">
+        <a href="{{ fc.href }}" style="color:#C8C3B8;font-size:14.5px;transition:color .25s ease" style-hover="color:#FFFFFF">{{ fc.name }}</a>
+      </sc-for>
+    </nav>
+    <nav aria-label="Quick links" style="display:flex;flex-direction:column;gap:14px;min-width:140px">
+      <h2 style="font-size:15px;font-weight:600;color:#F3EFE8;letter-spacing:0">Quick Links</h2>
+      <a href="#/about" style="color:#C8C3B8;font-size:14.5px;transition:color .25s ease" style-hover="color:#FFFFFF">About</a>
+      <a href="#/projects" style="color:#C8C3B8;font-size:14.5px;transition:color .25s ease" style-hover="color:#FFFFFF">Projects</a>
+      <a href="#/contact" style="color:#C8C3B8;font-size:14.5px;transition:color .25s ease" style-hover="color:#FFFFFF">Contact</a>
+    </nav>
+  </div>
+  <div style="border-top:1px solid rgba(243,239,232,0.12)">
+    <div style="max-width:1240px;margin:0 auto;padding:20px clamp(20px,4vw,48px);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;font-size:12.5px">
+      <span>© {{ year }} Al Attia Group. All rights reserved.</span>
+      <span>Powered by Lunad Digital Portal L.L.C</span>
+    </div>
+  </div>
+</footer>
+
+<sc-if value="{{ showAssistant }}" hint-placeholder-val="{{ true }}">
+  <sc-if value="{{ chatOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;right:16px;bottom:156px;border-radius:18px;overflow:hidden;z-index:50;width:352px;max-width:calc(100vw - 32px);max-height:70vh;display:flex;flex-direction:column;background:#FBFAF7;border:1px solid #DDD7CC;box-shadow:0 20px 50px rgba(20,24,21,0.18)">
+      <div style="background:#1F2420;color:#F3EFE8;padding:16px 18px;display:flex;justify-content:space-between;align-items:center">
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:Inter,system-ui,sans-serif;font-size:20px">Al Attia Assistant</span><span style="font-size:12px;color:#C8C3B8">Always here to help</span></div>
+        <button type="button" onClick="{{ toggleChat }}" aria-label="Close" style="background:none;border:none;color:#F3EFE8;font-size:20px;cursor:pointer">×</button>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;font-size:13.5px;line-height:1.55">
+        <div style="border-radius:12px;background:#ECE7DF;padding:12px 14px">Welcome to Al Attia Group. I'm here to help you with:<br>• Project inquiries &amp; quotations<br>• Service recommendations<br>• Scheduling site visits<br>• General questions<br><br>How may I assist you today?</div>
+        <sc-for list="{{ msgs }}" as="m" hint-placeholder-count="0">
+          <div style="border-radius:12px;padding:12px 14px;background:{{ m.bg }};color:{{ m.color }};margin-left:{{ m.ml }};margin-right:{{ m.mr }}">{{ m.t }}</div>
+        </sc-for>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <sc-for list="{{ quickReplies }}" as="q" hint-placeholder-count="4">
+            <button type="button" onClick="{{ q.ask }}" style="background:none;border:1px solid #CFC8BB;border-radius:999px;padding:6px 12px;font-size:12px;cursor:pointer;color:#1F2420" style-hover="border-color:#9A6B43">{{ q.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <form onSubmit="{{ sendChat }}" style="display:flex;gap:8px;border-top:1px solid #DDD7CC;padding:12px">
+        <input value="{{ chatInput }}" onChange="{{ setChatInput }}" placeholder="Type a message…" style="flex:1;border:1px solid #CFC8BB;background:#fff;border-radius:8px;padding:10px 12px;font-size:13px;outline:none">
+        <button type="submit" aria-label="Send" style="background:#1F2420;color:#F3EFE8;border:none;border-radius:8px;padding:0 14px;font-size:12px;font-weight:600;cursor:pointer">Send</button>
+      </form>
+      <a href="{{ chatWa }}" target="_blank" rel="noreferrer" style="background:#9A6B43;color:#fff;padding:10px;text-align:center;font-size:12px;font-weight:600">Continue on WhatsApp</a>
+    </div>
+  </sc-if>
+  <button type="button" onClick="{{ toggleChat }}" aria-label="Open assistant" style="position:fixed;right:16px;bottom:88px;z-index:50;opacity:{{ fabOp }};visibility:{{ fabVis }};transform:translateY({{ fabY }});transition:opacity .45s ease, transform .45s ease, visibility .45s;border-radius:14px;height:52px;padding:0 20px;background:#1F2420;color:#F3EFE8;border:none;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(20,24,21,0.25)">Assistant</button>
+  <a href="{{ defaultWa }}" target="_blank" rel="noreferrer" style="position:fixed;right:16px;bottom:24px;z-index:50;opacity:{{ fabOp }};visibility:{{ fabVis }};transform:translateY({{ fabY }});transition:opacity .45s ease, transform .45s ease, visibility .45s;border-radius:14px;height:52px;padding:0 20px;display:flex;align-items:center;gap:10px;background:#FBFAF7;border:1px solid #DDD7CC;font-size:13px;font-weight:700;color:#1F2420;box-shadow:0 10px 30px rgba(20,24,21,0.15)"><svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>WhatsApp</a>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Video&quot;,&quot;Split&quot;,&quot;Full-bleed&quot;],&quot;default&quot;:&quot;Video&quot;,&quot;tsType&quot;:&quot;'Video' | 'Split' | 'Full-bleed'&quot;},&quot;showAssistant&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;heroVideoUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showUnconfirmedServices&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const WA = "971542111113";
+const waLink = (t) => `https://wa.me/${WA}?text=${encodeURIComponent(t)}`;
+const DEFAULT_WA = waLink("Hello Al Attia Group, I would like to request a quotation / site visit.");
+const SERVICES = ["General Contracting","Building Maintenance","Interior Decor & Fit-out","Exterior Decor & Fit-out","Aluminium Workshop","Aluminium & Glass Facades","Kitchen Manufacturing & Installation","Furniture Manufacturing"];
+const BRIEF_SERVICES = ["General Contracting","Building Maintenance","Interior Fit-out","Exterior Fit-out","Aluminium & Glass","Kitchen Manufacturing","Furniture Manufacturing"];
+const REPLIES = {
+  "I need a quotation": "Happy to help! Share your project type, size, location and timeline — or tap WhatsApp below and our team will prepare a quote.",
+  "Schedule a site visit": "We schedule site visits Sunday–Friday, 08:00–17:00. Send us your location on WhatsApp and a preferred time.",
+  "What services do you offer?": "General contracting, building maintenance, interior & exterior fit-out, aluminium & glass works, kitchen and furniture manufacturing.",
+  "Kitchen manufacturing info": "We design, manufacture and install custom kitchens with premium finishing in our own factory.",
+};
+const SERVICE_CARDS = [
+  ["General Contracting","Planning, managing, and executing construction projects of various sizes."],
+  ["Building Maintenance","Preventive and emergency maintenance to keep buildings safe and operational."],
+  ["Furniture Manufacturing","Custom design + manufacturing using quality materials and modern techniques."],
+  ["Kitchen Manufacturing","Custom design, production and accurate installation with premium finishing."],
+  ["Aluminium Workshop","Windows, doors and aluminium works with repair and maintenance support."],
+  ["Aluminium & Glass Facades","Design + precision installation for commercial and residential facade systems."],
+  ["Exterior Decor & Fit-out","Modern exterior improvements, facade design, landscaping & outdoor works."],
+  ["Interior Decor & Fit-out","Innovative decor solutions for residential and commercial spaces."],
+];
+const FAQS = [
+  ["How do we get a quotation?","Send details via WhatsApp or use the enquiry form. For larger work, we schedule a site visit and then share a detailed scope + quote."],
+  ["Do you handle emergency maintenance?","Yes—emergency maintenance is available depending on location and the issue type. Message us with photos and urgency."],
+  ["Can you do turnkey fit-out (design to handover)?","We can support end-to-end execution across interior/exterior works, aluminium & glass, kitchens, and furniture—aligned with your requirements."],
+  ["What info should I share to get an accurate price?","Project type, area/size, location, timeline, and any drawings/photos. You can also generate a structured brief using the Project Brief Generator at the top."],
+];
+const A = "src/assets/";
+const HERO_SLIDES = [[A+"hero-classical-villa.png","Classical white villa with columns and wrought-iron balconies"],[A+"hero-modern-villa.png","Modern stone-clad villa at dusk"],[A+"hero-commercial-building.png","Contemporary commercial building with glass storefronts"],[A+"hero-alattia-plaza.png","Al Attia Plaza 2 building facade"],[A+"project-villa-front.jpg","Classical villa by Al Attia Group"]];
+const GAL = { "aluminium-facade-works": [A+"project-modern-entrance.jpg", A+"project-modern-row.jpg"], "building-maintenance": [A+"project-villa-front.jpg", A+"project-villa-landscaping.jpg", A+"project-modern-row.jpg"], "renovation-services": [A+"project-villa-sunset.jpg", A+"project-villa-garden.jpg", A+"project-villa-front.jpg"] };
+const BASE = "https://alattiagroup.com";
+const CF0 = { company: "", name: "", code: "+971", phone: "", email: "", message: "", hp: "" };
+const r0isSplit = (s, p) => s.route.type === "home" && (p.heroStyle ?? "Video") === "Split";
+const parseRoute = () => {
+  const hh = (typeof location !== "undefined" ? location.hash : "").replace(/^#/, "");
+  if (hh === "/about") return { type: "about", key: "about" };
+  if (hh === "/contact") return { type: "contact", key: "contact" };
+  if (hh.startsWith("/projects")) { const pr = hh.split("/").filter(Boolean); return pr.length > 1 ? { type: "project", slug: pr[1], key: hh } : { type: "projects", key: "projects" }; }
+  if (hh.startsWith("/services")) { const pr = hh.split("/").filter(Boolean); return { type: pr.length === 1 ? "landing" : pr.length === 2 ? "cat" : "svc", cat: pr[1], svc: pr[2], key: hh }; }
+  return { type: "home", anchor: hh && !hh.startsWith("/") ? hh : null, key: "home" };
+};
+
+class Component extends DCLogic {
+  state = {
+    w: typeof window !== "undefined" ? window.innerWidth : 1280, menu: false,
+    bType: "", bSvc: [], bSize: "", bTimeline: "Standard (2–6 weeks)", bBudget: "AED 25k–100k", brief: null,
+    faq: -1, c: { name: "", phone: "", service: SERVICES[0], message: "" },
+    chat: false, msgs: [], chatInput: "", statT: 0,
+    route: parseRoute(), mega: false, mSvc: false, mCat: -1,
+  };
+  statsRef = React.createRef();
+  footerRef = (el) => { if (this.fio) this.fio.disconnect(); if (!el) return; this.fio = new IntersectionObserver((es) => { const v = es[0].isIntersecting; if (v !== this.state.atFooter) this.setState({ atFooter: v }); }); this.fio.observe(el); };
+  heroVideoRef = (el) => { if (el) { el.muted = true; const pr = el.play && el.play(); pr && pr.catch && pr.catch(() => {}); } };
+  componentDidMount() {
+    this.onR = () => this.setState({ w: window.innerWidth }); window.addEventListener("resize", this.onR);
+    this.reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    this.io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.style.opacity = "1"; e.target.style.transform = "none"; this.io.unobserve(e.target); } }), { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    this.setupReveal();
+    this.setupStats();
+    this.startSlider();
+    this.onScroll = () => { const sc = window.scrollY > 40, ih = window.scrollY > (this.state.route.type === "contact" ? 320 : window.innerHeight * 0.7); if (sc !== this.state.scrolled || ih !== this.state.pastHero) this.setState({ scrolled: sc, pastHero: ih }); };
+    window.addEventListener("scroll", this.onScroll, { passive: true }); this.onScroll();
+    HERO_SLIDES.forEach(([src]) => { const im = new Image(); im.src = src; });
+    this.onHash = () => { const r = parseRoute(); const prev = this.state.route; this.setState({ route: r, menu: false, mega: false }, () => this.afterRoute(prev, r)); };
+    window.addEventListener("hashchange", this.onHash);
+    if (!window.AA_SVC || !window.AA_PROJ) this.dp = setInterval(() => { if (window.AA_SVC && window.AA_PROJ) { clearInterval(this.dp); this.forceUpdate(); } }, 100);
+    this.applySeo();
+    const r0 = this.state.route; if (r0.type === "home" && r0.anchor) setTimeout(() => this.scrollToId(r0.anchor), 300);
+  }
+  openQuote() {
+    this.setState({ quote: true, mega: false }, () => requestAnimationFrame(() => requestAnimationFrame(() => this.setState({ quoteIn: true }))));
+    document.body.style.overflow = "hidden";
+    this.onEsc = (e) => { if (e.key === "Escape") this.closeQuote(); }; window.addEventListener("keydown", this.onEsc);
+  }
+  closeQuote() {
+    this.setState({ quoteIn: false }); clearTimeout(this.qT); this.qT = setTimeout(() => this.setState({ quote: false }), 350);
+    document.body.style.overflow = ""; window.removeEventListener("keydown", this.onEsc);
+  }
+  startSlider() { clearInterval(this.sliderT); this.sliderT = setInterval(() => { if (document.visibilityState === "visible") this.setState((st) => ({ slide: ((st.slide ?? 0) + 1) % HERO_SLIDES.length })); }, 4000); }
+  componentDidUpdate() { this.setupReveal(); this.setupStats(); this.applySeo(); }
+  scrollToId(id) { const el = document.getElementById(id); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 84, behavior: "smooth" }); }
+  afterRoute(prev, r) {
+    if (r.type === "home") { if (prev.type !== "home") { if (r.anchor) setTimeout(() => this.scrollToId(r.anchor), 60); else window.scrollTo({ top: 0, behavior: "instant" }); } }
+    else if (r.key !== prev.key) window.scrollTo({ top: 0, behavior: "instant" });
+  }
+  setupStats() {
+    if (this.reduce) { if (this.state.statT !== 1) this.setState({ statT: 1 }); return; }
+    const el = this.statsRef.current;
+    if (!el || el === this.statsEl || this.state.statT >= 1) return;
+    this.statsEl = el; this.sio && this.sio.disconnect();
+    this.sio = new IntersectionObserver((es) => { if (es[0].isIntersecting) { this.sio.disconnect(); this.runCount(); } }, { threshold: 0.4 });
+    this.sio.observe(el);
+  }
+  applySeo() {
+    const pg = this.pg; if (!pg) return; if (document.title !== pg.title) document.title = pg.title; if (pg.key === this.seoKey) return; this.seoKey = pg.key;
+    const meta = (attr, k, v) => { let el = document.head.querySelector('meta[' + attr + '="' + k + '"]'); if (!el) { el = document.createElement("meta"); el.setAttribute(attr, k); document.head.appendChild(el); } el.setAttribute("content", v); };
+    document.title = pg.title;
+    meta("name", "description", pg.desc); meta("property", "og:title", pg.title); meta("property", "og:description", pg.desc);
+    meta("property", "og:url", BASE + pg.path); meta("property", "og:type", "website"); meta("name", "twitter:card", "summary_large_image");
+    let can = document.head.querySelector('link[rel="canonical"]'); if (!can) { can = document.createElement("link"); can.rel = "canonical"; document.head.appendChild(can); } can.href = BASE + pg.path;
+    const org = { "@type": "LocalBusiness", name: "Al Attia Group", telephone: "+971542111113", email: "info@alattiagroup.com", url: BASE, address: { "@type": "PostalAddress", streetAddress: "Al Attia Plaza, Al Rawdha 3", addressLocality: "Ajman", addressCountry: "AE" } };
+    const graph = [];
+    if (pg.crumbs.length > 1) graph.push({ "@type": "BreadcrumbList", itemListElement: pg.crumbs.map(([n, u], i) => ({ "@type": "ListItem", position: i + 1, name: n, item: BASE + u })) });
+    if (pg.service) graph.push({ "@type": "Service", name: pg.service.name, serviceType: pg.service.name, description: pg.service.desc, provider: org, areaServed: { "@type": "Country", name: "United Arab Emirates" }, url: BASE + pg.path });
+    if (pg.localBiz) graph.push({ ...org, "@id": BASE + "/#business", telephone: ["+971542111113", "+971503779937", "+97167046991"], hasMap: "https://www.google.com/maps?cid=3525488005853458317", geo: { "@type": "GeoCoordinates", latitude: 25.3829857, longitude: 55.5053711 } });
+    if (!graph.length) graph.push(org);
+    let ld = document.getElementById("aa-ld"); if (!ld) { ld = document.createElement("script"); ld.type = "application/ld+json"; ld.id = "aa-ld"; document.head.appendChild(ld); }
+    ld.textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": graph });
+  }
+  componentWillUnmount() { clearInterval(this.sliderT); window.removeEventListener("scroll", this.onScroll); window.removeEventListener("hashchange", this.onHash); clearInterval(this.dp); clearTimeout(this.megaT); window.removeEventListener("resize", this.onR); this.io && this.io.disconnect(); this.sio && this.sio.disconnect(); cancelAnimationFrame(this.raf); }
+  setupReveal() {
+    if (!this.io) return;
+    document.querySelectorAll("[data-reveal]:not([data-rv])").forEach((el) => {
+      el.setAttribute("data-rv", "1");
+      if (this.reduce) return;
+      const sibs = [...el.parentElement.children].filter((c) => c.hasAttribute("data-reveal"));
+      const d = Math.min(Math.max(sibs.indexOf(el), 0), 5) * 90;
+      const ease = "cubic-bezier(.22,.61,.36,1)";
+      el.style.opacity = "0"; el.style.transform = "translateY(36px)";
+      el.style.transition = `opacity 1.1s ${ease} ${d}ms, transform 1.1s ${ease} ${d}ms`;
+      this.io.observe(el);
+    });
+    clearTimeout(this.rvT);
+    this.rvT = setTimeout(() => document.querySelectorAll("[data-rv]").forEach((el) => { const r = el.getBoundingClientRect(); if (document.visibilityState !== "visible" || r.top < window.innerHeight) { el.style.opacity = "1"; el.style.transform = "none"; } }), 1500);
+  }
+  runCount() {
+    const start = performance.now(), D = 2200;
+    const tick = (now) => { const t = Math.min(1, (now - start) / D); this.setState({ statT: 1 - Math.pow(1 - t, 3) }); if (t < 1) this.raf = requestAnimationFrame(tick); };
+    this.raf = requestAnimationFrame(tick);
+  }
+  ask(q) {
+    if (!q || !q.trim()) return;
+    const a = REPLIES[q] ?? "Thanks! For a detailed answer, our team is one tap away on WhatsApp.";
+    this.setState((s) => ({ msgs: [...s.msgs, { me: true, t: q }, { me: false, t: a }], chatInput: "" }));
+  }
+  validateCf(cf) {
+    const e = {}, t = (v) => (v || "").trim();
+    if (!t(cf.company)) e.company = "Please enter your company name.";
+    if (!t(cf.name)) e.name = "Please enter your name.";
+    const digits = t(cf.phone).replace(/[\s\-().]/g, "");
+    if (!digits) e.phone = "Please enter your phone number.";
+    else if (!/^\+?\d{6,15}$/.test(digits)) e.phone = "Please enter a valid phone number, e.g. +971 50 123 4567.";
+    if (!t(cf.email)) e.email = "Please enter your email address.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(t(cf.email))) e.email = "Please enter a valid email address, e.g. name@company.com.";
+    if (!t(cf.message)) e.message = "Please tell us about your enquiry.";
+    else if (t(cf.message).length < 10) e.message = "Please add a little more detail (at least 10 characters).";
+    return e;
+  }
+  async submitCf(e) {
+    e.preventDefault();
+    const s = this.state, cf = s.cf || CF0;
+    const errs = this.validateCf(cf);
+    this.setState({ cfTried: true, cfErrs: errs, cfStatus: "idle" });
+    if (Object.keys(errs).length) return;
+    if (cf.hp || Date.now() - (this.cfT0 || 0) < 3000) { this.setState({ cfStatus: "success" }); return; }
+    const text = "Hello Al Attia Group, I would like to enquire about your services.\n\nCompany: " + cf.company.trim() + "\nName: " + cf.name.trim() + "\nNumber: " + cf.phone.trim() + "\nEmail: " + cf.email.trim() + "\n\nMessage: " + cf.message.trim();
+    const win = window.open(waLink(text), "_blank");
+    if (!win) { this.setState({ cfStatus: "error", cfErrMsg: "We couldn't open WhatsApp. Please allow pop-ups for this site and try again, or message us directly on +971 54 211 1113." }); return; }
+    this.setState({ cfStatus: "success", cf: CF0, cfTried: false, cfErrs: {} });
+  }
+  contactVals(s, p) {
+    if (!this.cfT0) this.cfT0 = Date.now();
+    const cf = s.cf || CF0, errs = s.cfTried ? this.validateCf(cf) : {};
+    const set = (k) => (e) => { const v = e.target.value; this.setState((st) => ({ cf: { ...(st.cf || CF0), [k]: v } })); };
+    const err = {}; ["company", "name", "phone", "email", "message"].forEach((k) => { err[k] = errs[k] || ""; err[k + "On"] = !!errs[k]; err[k + "Bc"] = errs[k] ? "#B03A2E" : "#CFC8BB"; });
+    const st = s.cfStatus || "idle";
+    return {
+      cf, cfErr: err, cfSet: Object.fromEntries(["company", "name", "code", "phone", "email", "message", "hp"].map((k) => [k, set(k)])),
+      cfCodes: [["+971","UAE +971"],["+966","KSA +966"],["+968","Oman +968"],["+974","Qatar +974"],["+965","Kuwait +965"],["+973","Bahrain +973"],["+91","India +91"],["+92","Pakistan +92"],["+44","UK +44"],["+1","USA +1"],["other","Other"]].map(([v, l]) => ({ v, l })),
+      cfSubmit: (e) => this.submitCf(e), cfReset: () => { this.cfT0 = Date.now(); this.setState({ cfStatus: "idle", cf: CF0, cfTried: false }); },
+      cfDone: st === "success", cfShowForm: st !== "success", cfFailed: st === "error", cfErrMsg: s.cfErrMsg || "",
+      cfLoading: st === "loading", cfBtnOp: st === "loading" ? 0.7 : 1, cfBtnLabel: st === "loading" ? "Opening WhatsApp…" : "Send on WhatsApp",
+      contactWa: waLink("Hello Al Attia Group, I would like to enquire about your services."),
+      mapH: s.w < 640 ? "320px" : "440px",
+    };
+  }
+  servicesVals(s, p, isMobile) {
+    const D = window.AA_SVC, showU = p.showUnconfirmedServices ?? false;
+    const cats = D ? D.CATS.map((c) => ({ ...c, services: c.services.filter((x) => showU || !x.unconfirmed) })) : [];
+    const cH = (c) => "#/services/" + c.slug, sH = (c, x) => "#/services/" + c.slug + "/" + x.slug;
+    const r = s.route;
+    const cat = (r.type === "cat" || r.type === "svc") ? cats.find((c) => c.slug === r.cat) : null;
+    const svc = cat && r.type === "svc" ? cat.services.find((x) => x.slug === r.svc) : null;
+    const PJ = window.AA_PROJ, proj = r.type === "project" && PJ ? PJ.PROJECTS.find((x) => x.slug === r.slug) : null;
+    const page = r.type === "home" ? "home" : r.type === "about" ? "about" : r.type === "contact" ? "contact" : r.type === "projects" || (r.type === "project" && PJ && !proj) ? "projects" : r.type === "project" ? (proj ? "project" : "projects") : !D ? "loading" : svc ? "svc" : cat ? "cat" : "landing";
+    const crumbs = [["Home", "/"]];
+    if (page === "home") this.pg = { key: "home", title: "Al Attia Group — Construction, Fit-out & Manufacturing in Ajman, UAE", desc: "Al Attia Group delivers general contracting, maintenance, fit-out, aluminium & glass, kitchen and furniture manufacturing across the UAE.", path: "/", crumbs };
+    else if (page === "about") this.pg = { key: "about", title: "About Al Attia Group | Engineering, Contracting & Building Solutions in UAE", desc: "Al Attia Group provides engineering, contracting and building solutions in the UAE, including HVAC, aluminium and facade works, building maintenance, interior fit-out, kitchens and renovation.", path: "/about", crumbs: [...crumbs, ["About Us", "/about"]] };
+    else if (page === "contact") this.pg = { key: "contact", title: "Contact Al Attia Group | Engineering & Contracting UAE", desc: "Get in touch with Al Attia Group for HVAC, aluminium facade, building maintenance, interior fit-out, kitchen and renovation services in the UAE.", path: "/contact", crumbs: [...crumbs, ["Contact Us", "/contact"]], localBiz: true };
+    else if (page === "projects") this.pg = { key: "projects", title: "Our Projects | HVAC, Facade, Fit-Out & Renovation Work in UAE | Al Attia Group", desc: "Explore Al Attia Group projects across HVAC, aluminium and facade installations, building maintenance, interior fit-out, kitchen solutions and renovation in the UAE.", path: "/projects", crumbs: [...crumbs, ["Projects", "/projects"]] };
+    else if (page === "project") this.pg = { key: "p/" + proj.slug, title: proj.metaTitle, desc: proj.metaDescription, path: "/projects/" + proj.slug, crumbs: [...crumbs, ["Projects", "/projects"], [proj.name, "/projects/" + proj.slug]] };
+    else if (page === "landing") this.pg = { key: "landing", title: "Services | HVAC, Aluminium, Fit-Out & Building Maintenance in UAE | Al Attia Group", desc: "Explore HVAC and air conditioning, aluminium and facade works, building maintenance, interior fit-out, kitchen and renovation services from Al Attia Group across the UAE.", path: "/services", crumbs: [...crumbs, ["Services", "/services"]] };
+    else if (page === "cat") this.pg = { key: cat.slug, title: cat.metaTitle, desc: cat.metaDesc, path: "/services/" + cat.slug, crumbs: [...crumbs, ["Services", "/services"], [cat.name, "/services/" + cat.slug]], service: { name: cat.name, desc: cat.metaDesc } };
+    else if (page === "svc") { const d = (svc.intro + " " + svc.overview.split(". ")[0] + ".").slice(0, 158); this.pg = { key: cat.slug + "/" + svc.slug, title: svc.name + " in UAE | Al Attia Group", desc: d, path: "/services/" + cat.slug + "/" + svc.slug, crumbs: [...crumbs, ["Services", "/services"], [cat.name, "/services/" + cat.slug], [svc.name, "/services/" + cat.slug + "/" + svc.slug]], service: { name: svc.name, desc: svc.intro } }; }
+    const card = (c) => ({ name: c.name, short: c.short, num: c.num, href: cH(c), slot: c.slot + "-card", src: c.img || undefined, ph: c.placeholder });
+    const wa = (t) => waLink("Hello Al Attia Group, I'd like to enquire about " + t + ".");
+    const emptyCat = { services: [], gallery: [], related: [] }, emptySvc = { scope: [], apps: [], related: [], relatedCats: [] };
+    return {
+      isHome: page === "home", isAbout: page === "about", footerCats: cats.map((c) => ({ name: c.name, href: cH(c) })), isContact: page === "contact", ...this.contactVals(s, p), isProjects: page === "projects", isProject: page === "project",
+      projCols: s.w >= 1000 ? 3 : s.w >= 640 ? 2 : 1, projRatio: s.w >= 640 ? "16/8" : "4/3",
+      projWa: waLink(proj ? "Hello Al Attia Group, I'm planning a project similar to " + proj.name + "." : "Hello Al Attia Group, I'd like to start a project."),
+      projList: PJ ? PJ.PROJECTS.map((x) => ({ name: x.name, location: x.location, href: "#/projects/" + x.slug, bg: 'url("' + x.image + '")' })) : [],
+      projMore: PJ && proj ? PJ.PROJECTS.filter((x) => x.slug !== proj.slug).slice(0, 3).map((x) => ({ name: x.name, location: x.location, href: "#/projects/" + x.slug, bg: 'url("' + x.image + '")' })) : [],
+      proj: proj ? { name: proj.name, location: proj.location, paras: [].concat(proj.description), categoryName: PJ.CATEGORIES[proj.category] || "", client: proj.client || "To be confirmed", bg: 'url("' + proj.image + '")', wa: waLink("Hello Al Attia Group, I'm interested in a project similar to " + proj.name + "."), gallery: Array.from({ length: proj.gallery }, (_, i) => ({ id: "proj-" + proj.slug + "-" + (i + 1) })) } : { gallery: [], paras: [] },
+      aboutCats: cats.map((c) => ({ name: c.name, href: cH(c) })),
+      coreValues: [["Quality","Maintaining high standards in every aspect of our work."],["Integrity","Building trust through transparency, honesty and accountability."],["Customer Commitment","Understanding and prioritising our clients' requirements."],["Professionalism","Delivering projects with responsibility, efficiency and attention to detail."],["Continuous Improvement","Embracing better methods, technologies and solutions."]].map(([t, d]) => ({ t, d })), isLanding: page === "landing" || page === "loading", isCat: page === "cat", isSvc: page === "svc",
+      megaOp: s.mega ? 1 : 0, megaVis: s.mega ? "visible" : "hidden", megaY: s.mega ? "0px" : "-8px", megaRot: s.mega ? "180deg" : "0deg",
+      megaEnter: () => { clearTimeout(this.megaT); if (!this.state.mega) this.setState({ mega: true }); },
+      megaLeave: () => { clearTimeout(this.megaT); this.megaT = setTimeout(() => this.setState({ mega: false }), 140); },
+      megaClose: () => { clearTimeout(this.megaT); this.setState({ mega: false }); },
+      megaCats: cats.map((c) => ({ name: c.name, num: c.num, href: cH(c), items: c.services.slice(0, 4).map((x) => ({ name: x.name, href: sH(c, x) })), moreLabel: "View all services →" })),
+      mSvcOpen: s.mSvc, mSvcSign: s.mSvc ? "−" : "+", toggleMSvc: () => this.setState({ mSvc: !s.mSvc }),
+      mCats: cats.map((c, i) => ({ name: c.name, href: cH(c), open: s.mCat === i, sign: s.mCat === i ? "−" : "+", toggle: () => this.setState({ mCat: s.mCat === i ? -1 : i }), items: c.services.map((x) => ({ name: x.name, href: sH(c, x) })) })),
+      scrollToGrid: (e) => { e.preventDefault(); this.scrollToId("svc-grid"); },
+      landingCats: cats.map((c) => ({ ...card(c), highlights: c.services.slice(0, 3).map((x) => ({ name: x.name, href: sH(c, x) })) })),
+      why: D ? D.WHY.map(([t, d], i) => ({ t, d, num: "0" + (i + 1) })) : [],
+      cat: cat ? { name: cat.name, num: cat.num, intro: cat.intro, slot: cat.slot + "-hero", src: cat.img || undefined, ph: cat.placeholder, wa: wa(cat.name),
+        ctaTitle: "Planning a project that needs " + cat.name + "?",
+        services: cat.services.map((x, i) => ({ name: x.name, intro: x.intro, href: sH(cat, x), num: String(i + 1).padStart(2, "0") })),
+        gallery: [0, 1, 2].map((i) => ({ id: cat.slot + "-g" + (i + 1), src: (GAL[cat.slug] || [])[i] || undefined, ph: cat.placeholder })),
+        related: cat.related.map((sl) => cats.find((c) => c.slug === sl)).filter(Boolean).map(card) } : emptyCat,
+      svc: svc ? { name: svc.name, intro: svc.intro, overview: svc.overview, scope: svc.scope, apps: svc.apps, catName: cat.name, catHref: cH(cat),
+        heroId: cat.slot + "-" + svc.slug + "-hero", imgA: cat.slot + "-" + svc.slug + "-a", imgB: cat.slot + "-" + svc.slug + "-b", src: cat.img || undefined, ph: svc.name + " photo", wa: wa(svc.name),
+        related: cat.services.filter((x) => x.slug !== svc.slug).slice(0, 3).map((x) => ({ name: x.name, intro: x.intro, href: sH(cat, x) })),
+        relatedCats: cat.related.map((sl) => cats.find((c) => c.slug === sl)).filter(Boolean).map((c) => ({ name: c.name, href: cH(c) })) } : emptySvc,
+    };
+  }
+  renderVals() {
+    const s = this.state, p = this.props;
+    const isMobile = s.w < 1000;
+    const hs = p.heroStyle ?? "Video";
+    const heroFull = hs === "Full-bleed";
+    const videoSrc = (p.heroVideoUrl ?? "").trim();
+    const setC = (k) => (e) => this.setState({ c: { ...s.c, [k]: e.target.value } });
+    const mine = s.msgs.filter((m) => m.me).map((m) => m.t);
+    return {
+      statsRef: this.statsRef, footerRef: this.footerRef,
+      quoteOpen: !!s.quote, quoteOp: s.quoteIn ? 1 : 0, quoteY: s.quoteIn ? "0px" : "18px", quoteS: s.quoteIn ? 1 : 0.98,
+      openQuote: (e) => { e && e.preventDefault(); this.openQuote(); },
+      openQuoteMobile: (e) => { e && e.preventDefault(); this.setState({ menu: false }); this.openQuote(); },
+      closeQuote: () => this.closeQuote(),
+      heroSlides: HERO_SLIDES.map(([src, alt], i) => { const on = (s.slide ?? 0) === i, still = this.reduce; return { src, bg: "url(\"" + src + "\")", alt, label: "Show slide " + (i + 1),
+        op: on ? 1 : 0, scale: on && !still ? 1.07 : 1,
+        tr: on ? "opacity 1.6s cubic-bezier(.4,0,.2,1), transform 5.6s ease-out" : "opacity 1.6s cubic-bezier(.4,0,.2,1), transform 0s linear 1.6s",
+        dotW: on ? "34px" : "14px", dotBg: on ? "#F6F3EE" : "rgba(246,243,238,0.45)", go: () => { this.setState({ slide: i }); this.startSlider(); } }; }),
+      ...(() => { const over = !s.scrolled && !s.menu && !s.mega && !(r0isSplit(s, p)) && s.route.type !== "project"; return {
+        hdrBg: over ? "linear-gradient(180deg,rgba(20,24,21,0.55) 0%,rgba(20,24,21,0) 100%)" : "rgba(246,243,238,0.96)",
+        hdrBlur: over ? "none" : "blur(10px)", hdrBorder: over ? "none" : "1px solid #DDD7CC", hdrShadow: over ? "none" : "0 8px 30px rgba(20,24,21,0.06)",
+        hdrInk: over ? "#FFFFFF" : "#1F2420", hdrSub: over ? "rgba(255,255,255,0.85)" : "#5E625C", hdrHover: over ? "#E6D3BF" : "#9A6B43",
+        hdrShadowTxt: over ? "0 1px 12px rgba(0,0,0,0.35)" : "none",
+        svcNavColor: over ? "#FFFFFF" : (["landing","cat","svc"].includes(s.route.type) ? "#9A6B43" : "#1F2420"),
+        navRest: [["About","#/about"],["Projects","#/projects"],["Contact","#/contact"]].map(([label, href]) => ({ label, href, color: (label === "About" && s.route.type === "about") || (label === "Projects" && (s.route.type === "projects" || s.route.type === "project")) || (label === "Contact" && s.route.type === "contact") ? (over ? "#E6D3BF" : "#9A6B43") : (over ? "#FFFFFF" : "#1F2420") })),
+        ctaBg: over ? "#F6F3EE" : "#1F2420", ctaInk: over ? "#1F2420" : "#F6F3EE",
+        logoShadow: over ? "drop-shadow(0 1px 10px rgba(0,0,0,0.35))" : "none",
+      }; })(),
+      ...(() => { const hasHero = s.route.type === "home" ? (p.heroStyle ?? "Video") !== "Split" : s.route.type !== "project"; const hide = ((hasHero && !s.pastHero) || s.atFooter) && !s.chat; return { fabOp: hide ? 0 : 1, fabVis: hide ? "hidden" : "visible", fabY: hide ? "16px" : "0px" }; })(),
+      showHeroTitle: s.w >= 768, heroCtaAlign: s.w >= 768 ? "flex-start" : "center",
+      projGap: s.w < 640 ? "32px 14px" : "48px 24px",
+      isMobile, showDesktopNav: !isMobile, showMobileMenu: isMobile && s.menu,
+      menuLabel: s.menu ? "Close" : "Menu",
+      toggleMenu: () => this.setState({ menu: !s.menu }), closeMenu: () => this.setState({ menu: false }),
+      ...this.servicesVals(s, p, isMobile),
+      heroSplit: hs === "Split", heroFull, heroVideo: hs === "Video", hasVideo: !!videoSrc, noVideo: !videoSrc, videoSrc, heroVideoRef: this.heroVideoRef,
+      defaultWa: DEFAULT_WA, year: new Date().getFullYear(),
+      // brief
+      briefEditing: !s.brief, briefReady: !!s.brief, briefText: s.brief || "", briefWa: s.brief ? waLink(s.brief) : DEFAULT_WA,
+      briefType: s.bType, briefSize: s.bSize, briefTimeline: s.bTimeline, briefBudget: s.bBudget,
+      setBriefType: (e) => this.setState({ bType: e.target.value }),
+      setBriefSize: (e) => this.setState({ bSize: e.target.value }),
+      setBriefTimeline: (e) => this.setState({ bTimeline: e.target.value }),
+      setBriefBudget: (e) => this.setState({ bBudget: e.target.value }),
+      projectTypes: ["Villa / Residential","Office / Commercial","Retail / Restaurant","Industrial / Warehouse"],
+      timelines: ["Urgent (1–2 weeks)","Standard (2–6 weeks)","Flexible"],
+      budgets: ["Under AED 25k","AED 25k–100k","AED 100k+"],
+      briefChips: BRIEF_SERVICES.map((label) => {
+        const on = s.bSvc.includes(label);
+        return { label, bg: on ? "#1F2420" : "#FBFAF7", color: on ? "#F6F3EE" : "#1F2420", border: on ? "#1F2420" : "#CFC8BB",
+          toggle: () => this.setState((st) => ({ bSvc: st.bSvc.includes(label) ? st.bSvc.filter((x) => x !== label) : [...st.bSvc, label] })) };
+      }),
+      generateBrief: () => this.setState({ brief: `PROJECT BRIEF — Al Attia Group\nProject type: ${s.bType || "Not specified"}\nServices: ${s.bSvc.join(", ") || "To be advised"}\nApprox. size: ${s.bSize || "To be confirmed"}\nTimeline: ${s.bTimeline}\nBudget: ${s.bBudget}\nNext step: site visit & detailed quotation.` }),
+      editBrief: () => this.setState({ brief: null }),
+      // content
+      panels: [[A+"project-villa-front.jpg","Luxury Villa Construction","Classical Excellence"],[A+"project-villa-sunset.jpg","Premium Finishing","Golden Hour"],[A+"project-villa-garden.jpg","Landscaping & Exterior","Garden Paradise"]].map(([src, tag, title]) => ({ src, bg: 'url("' + src + '")', tag, title })),
+      bigStats: [["250+","Projects Delivered"],["15+","Years of Excellence"],["50+","Expert Craftsmen"],["100%","Client Satisfaction"]].map(([n, l]) => { const v = parseInt(n, 10); return { n: Math.round(v * (s.statT ?? 0)) + n.replace(String(v), ""), l }; }),
+      services: SERVICE_CARDS.map(([title, desc], i) => ({ title, desc, num: String(i + 1).padStart(2, "0") })),
+      benefits: ["Clear scope + transparent quotation","Disciplined site supervision","Premium finishes & workmanship","Reliable after-service support"],
+      steps: [["Consult","Clarify requirements and constraints with our expert team."],["Scope & Quote","Detailed scope, timeline, and transparent quotation."],["Execute","Site coordination, quality checks, regular updates."],["Handover","Final inspection, snag resolution, and aftercare."]].map(([title, desc], i) => ({ title, desc, num: "0" + (i + 1) })),
+      projects: [
+        [A+"project-villa-front.jpg","Full Construction & Finishing","Classical Villa",true],
+        [A+"project-modern-row.jpg","Contemporary Design • Row Houses","Modern Residences",false],
+        [A+"project-modern-entrance.jpg","Aluminium & Glass Works","Premium Entrance",false],
+        [A+"project-villa-garden.jpg","Exterior & Landscaping","Garden Villa",false],
+        [A+"project-villa-landscaping.jpg","Complete Development","Luxury Streetscape",false],
+      ].map(([src, tag, title, big]) => ({ src, bg: 'url("' + src + '")', tag, title, span: big ? "1 / -1" : "auto", ratio: big ? (isMobile ? "16/10" : "21/9") : "4/3",
+        href: "#/projects/" + ({ "Classical Villa": "classical-villa", "Modern Residences": "modern-residences", "Premium Entrance": "premium-entrance", "Garden Villa": "garden-villa", "Luxury Streetscape": "luxury-streetscape" })[title] })),
+      faqs: FAQS.map(([q, a], i) => ({ q, a, open: s.faq === i, sign: s.faq === i ? "−" : "+", toggle: () => this.setState({ faq: s.faq === i ? -1 : i }) })),
+      // contact
+      serviceOptions: SERVICES,
+      cName: s.c.name, cPhone: s.c.phone, cService: s.c.service, cMessage: s.c.message,
+      setCName: setC("name"), setCPhone: setC("phone"), setCService: setC("service"), setCMessage: setC("message"),
+      submitContact: (e) => { e.preventDefault(); window.open(waLink(`Hello Al Attia Group,\nName: ${s.c.name}\nPhone: ${s.c.phone}\nService: ${s.c.service}\nMessage: ${s.c.message}`), "_blank"); },
+      // assistant
+      showAssistant: p.showAssistant ?? true, chatOpen: s.chat,
+      toggleChat: () => this.setState({ chat: !s.chat }),
+      msgs: s.msgs.map((m) => ({ t: m.t, bg: m.me ? "#1F2420" : "#ECE7DF", color: m.me ? "#F3EFE8" : "#1F2420", ml: m.me ? "32px" : "0", mr: m.me ? "0" : "32px" })),
+      quickReplies: Object.keys(REPLIES).map((label) => ({ label, ask: () => this.ask(label) })),
+      chatInput: s.chatInput, setChatInput: (e) => this.setState({ chatInput: e.target.value }),
+      sendChat: (e) => { e.preventDefault(); this.ask(s.chatInput); },
+      chatWa: mine.length ? waLink(mine.join("\n")) : DEFAULT_WA,
+    };
+  }
+}
+</script>
+</body>
+</html>
