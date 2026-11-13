@@ -414,13 +414,15 @@ input,select,textarea,button{font-family:inherit}
 
 <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
 <section style="position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;background:#141815">
-  <div role="img" aria-label="Al Attia Plaza 2 building" style="position:absolute;inset:0;background-image:url('src/assets/hero-alattia-plaza.png');background-size:cover;background-position:center top"></div>
-  <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(20,24,21,0.55) 0%,rgba(20,24,21,0.35) 40%,rgba(20,24,21,0.85) 100%)"></div>
-  <div style="position:relative;pointer-events:none;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(56px,8vw,112px)) clamp(20px,4vw,48px) clamp(48px,6vw,80px);color:#F6F3EE;display:flex;flex-direction:column;gap:22px;text-shadow:0 2px 24px rgba(0,0,0,0.35)">
-    <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#D9D3C7;pointer-events:auto"><a href="#top" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Home</a><span style="opacity:0.6">›</span><span style="color:#fff;white-space:nowrap">About Us</span></nav>
+  <div style="position:absolute;inset:0;overflow:hidden"><sc-for list="{{ heroSlides }}" as="sl" hint-placeholder-count="0">
+      <div role="img" aria-label="{{ sl.alt }}" style="position:absolute;inset:0;background-image:{{ sl.bg }};background-size:cover;background-position:center top;transform-origin:center top;opacity:{{ sl.op }};transform:scale({{ sl.scale }});transition:{{ sl.tr }};will-change:opacity,transform"></div>
+    </sc-for></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 60% at 22% 50%,rgba(20,24,21,0.4) 0%,rgba(20,24,21,0) 100%),linear-gradient(180deg,rgba(20,24,21,0.55) 0%,rgba(20,24,21,0.48) 45%,rgba(20,24,21,0.8) 100%);z-index:1"></div>
+  <div style="position:relative;z-index:2;pointer-events:none;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(56px,8vw,112px)) clamp(20px,4vw,48px) clamp(48px,6vw,80px);color:#F6F3EE;display:flex;flex-direction:column;gap:22px;text-shadow:0 2px 24px rgba(0,0,0,0.35)">
     <h1 style="font-size:clamp(42px,6vw,88px);line-height:1;letter-spacing:-0.035em;font-weight:400;max-width:900px">About Al Attia Group</h1>
     <p style="font-size:clamp(18px,1.6vw,22px);line-height:1.5;max-width:640px;color:#E6E1D8">Building Better Spaces Through Engineering, Expertise &amp; Commitment.</p>
   </div>
+  <div style="position:absolute;top:84px;left:0;right:0;z-index:3"><div style="max-width:1240px;margin:0 auto;padding:14px clamp(20px,4vw,48px)"><nav aria-label="Breadcrumb" style="text-shadow:0 1px 12px rgba(0,0,0,0.45);display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#D9D3C7;pointer-events:auto"><a href="#top" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Home</a><span style="opacity:0.6">›</span><span style="color:#fff;white-space:nowrap">About Us</span></nav></div></div>
 </section>
 
 <section style="max-width:1240px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:clamp(40px,6vw,88px);align-items:start">
@@ -509,15 +511,17 @@ input,select,textarea,button{font-family:inherit}
 </sc-if>
 
 <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
-<section style="position:relative;min-height:clamp(420px,56vh,540px);display:flex;align-items:flex-end;overflow:hidden;background:#141815">
-  <div role="img" aria-label="Al Attia Group building" style="position:absolute;inset:0;background-image:url('src/assets/hero-commercial-building.png');background-size:cover;background-position:center top"></div>
-  <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(20,24,21,0.6) 0%,rgba(20,24,21,0.55) 45%,rgba(20,24,21,0.88) 100%)"></div>
-  <div style="position:relative;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(40px,5vw,64px)) clamp(20px,4vw,48px) clamp(40px,5vw,56px);color:#F6F3EE;display:flex;flex-direction:column;gap:18px;text-shadow:0 2px 24px rgba(0,0,0,0.35)">
-    <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#D9D3C7"><a href="#top" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Home</a><span style="opacity:0.6">›</span><span style="color:#fff;white-space:nowrap">Contact Us</span></nav>
+<section style="position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;background:#141815">
+  <div style="position:absolute;inset:0;overflow:hidden"><sc-for list="{{ heroSlides }}" as="sl" hint-placeholder-count="0">
+      <div role="img" aria-label="{{ sl.alt }}" style="position:absolute;inset:0;background-image:{{ sl.bg }};background-size:cover;background-position:center top;transform-origin:center top;opacity:{{ sl.op }};transform:scale({{ sl.scale }});transition:{{ sl.tr }};will-change:opacity,transform"></div>
+    </sc-for></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 60% at 22% 50%,rgba(20,24,21,0.4) 0%,rgba(20,24,21,0) 100%),linear-gradient(180deg,rgba(20,24,21,0.55) 0%,rgba(20,24,21,0.48) 45%,rgba(20,24,21,0.8) 100%);z-index:1"></div>
+  <div style="position:relative;z-index:2;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(40px,5vw,64px)) clamp(20px,4vw,48px) clamp(40px,5vw,56px);color:#F6F3EE;display:flex;flex-direction:column;gap:18px;text-shadow:0 2px 24px rgba(0,0,0,0.35)">
     <h1 style="font-size:clamp(40px,5.4vw,76px);line-height:1;letter-spacing:-0.035em;font-weight:400">Get in Touch</h1>
     <p style="font-size:clamp(18px,1.6vw,22px);line-height:1.5">Let's Discuss Your Next Project.</p>
     <p style="font-size:16.5px;line-height:1.7;max-width:700px;color:#E6E1D8">Whether you're looking for HVAC solutions, building maintenance, aluminium and facade works, interior fit-out or renovation services, Al Attia Group is ready to understand your requirements and assist you.</p>
   </div>
+  <div style="position:absolute;top:84px;left:0;right:0;z-index:3"><div style="max-width:1240px;margin:0 auto;padding:14px clamp(20px,4vw,48px)"><nav aria-label="Breadcrumb" style="text-shadow:0 1px 12px rgba(0,0,0,0.45);display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#D9D3C7"><a href="#top" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Home</a><span style="opacity:0.6">›</span><span style="color:#fff;white-space:nowrap">Contact Us</span></nav></div></div>
 </section>
 
 <section style="max-width:1240px;margin:0 auto;padding:clamp(64px,8vw,104px) clamp(20px,4vw,48px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(32px,5vw,64px);align-items:start">
@@ -581,14 +585,16 @@ input,select,textarea,button{font-family:inherit}
 
 <sc-if value="{{ isProjects }}" hint-placeholder-val="{{ false }}">
 <section style="position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;background:#141815">
-  <div role="img" aria-label="Al Attia Group project" style="position:absolute;inset:0;background-image:url('src/assets/hero-modern-villa.png');background-size:cover;background-position:center top"></div>
-  <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(20,24,21,0.55) 0%,rgba(20,24,21,0.35) 40%,rgba(20,24,21,0.88) 100%)"></div>
-  <div style="position:relative;pointer-events:none;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(56px,8vw,112px)) clamp(20px,4vw,48px) clamp(48px,6vw,80px);color:#F6F3EE;display:flex;flex-direction:column;gap:22px;text-shadow:0 2px 24px rgba(0,0,0,0.35)">
-    <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#D9D3C7;pointer-events:auto"><a href="#top" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Home</a><span style="opacity:0.6">›</span><span style="color:#fff;white-space:nowrap">Projects</span></nav>
+  <div style="position:absolute;inset:0;overflow:hidden"><sc-for list="{{ heroSlides }}" as="sl" hint-placeholder-count="0">
+      <div role="img" aria-label="{{ sl.alt }}" style="position:absolute;inset:0;background-image:{{ sl.bg }};background-size:cover;background-position:center top;transform-origin:center top;opacity:{{ sl.op }};transform:scale({{ sl.scale }});transition:{{ sl.tr }};will-change:opacity,transform"></div>
+    </sc-for></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 60% at 22% 50%,rgba(20,24,21,0.4) 0%,rgba(20,24,21,0) 100%),linear-gradient(180deg,rgba(20,24,21,0.55) 0%,rgba(20,24,21,0.48) 45%,rgba(20,24,21,0.8) 100%);z-index:1"></div>
+  <div style="position:relative;z-index:2;pointer-events:none;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(56px,8vw,112px)) clamp(20px,4vw,48px) clamp(48px,6vw,80px);color:#F6F3EE;display:flex;flex-direction:column;gap:22px;text-shadow:0 2px 24px rgba(0,0,0,0.35)">
     <h1 style="font-size:clamp(42px,6vw,88px);line-height:1;letter-spacing:-0.035em;font-weight:400">Our Projects</h1>
     <p style="font-size:clamp(18px,1.6vw,22px);line-height:1.5;color:#F6F3EE">Explore Our Work. Discover Our Expertise.</p>
     <p style="font-size:16.5px;line-height:1.7;max-width:680px;color:#E6E1D8">Take a closer look at our work across HVAC, aluminium and facade installations, building maintenance, interior fit-out, kitchen solutions and renovation. Explore our projects and discover how we turn requirements into practical, well-executed solutions.</p>
   </div>
+  <div style="position:absolute;top:84px;left:0;right:0;z-index:3"><div style="max-width:1240px;margin:0 auto;padding:14px clamp(20px,4vw,48px)"><nav aria-label="Breadcrumb" style="text-shadow:0 1px 12px rgba(0,0,0,0.45);display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#D9D3C7;pointer-events:auto"><a href="#top" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Home</a><span style="opacity:0.6">›</span><span style="color:#fff;white-space:nowrap">Projects</span></nav></div></div>
 </section>
 <section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px) 0">
   <div style="display:grid;grid-template-columns:repeat({{ projCols }},minmax(0,1fr));gap:48px 24px">
@@ -690,10 +696,11 @@ input,select,textarea,button{font-family:inherit}
 
 <sc-if value="{{ isLanding }}" hint-placeholder-val="{{ false }}">
 <section style="position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;background:#141815">
-  <div style="position:absolute;inset:0"><image-slot id="svc-landing-hero" shape="rect" src="src/assets/project-villa-landscaping.jpg" placeholder="Corporate construction / engineering photo"></image-slot></div>
-  <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(20,24,21,0.88) 0%,rgba(20,24,21,0.6) 55%,rgba(20,24,21,0.25) 100%)"></div>
-  <div style="position:relative;pointer-events:none;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(56px,8vw,112px)) clamp(20px,4vw,48px) clamp(48px,6vw,72px);color:#F6F3EE;display:flex;flex-direction:column;gap:22px">
-    <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#D9D3C7;pointer-events:auto"><a href="#top" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Home</a><span style="opacity:0.6">›</span><span style="color:#fff;white-space:nowrap">Services</span></nav>
+  <div style="position:absolute;inset:0;overflow:hidden"><sc-for list="{{ heroSlides }}" as="sl" hint-placeholder-count="0">
+      <div role="img" aria-label="{{ sl.alt }}" style="position:absolute;inset:0;background-image:{{ sl.bg }};background-size:cover;background-position:center top;transform-origin:center top;opacity:{{ sl.op }};transform:scale({{ sl.scale }});transition:{{ sl.tr }};will-change:opacity,transform"></div>
+    </sc-for></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 60% at 22% 50%,rgba(20,24,21,0.4) 0%,rgba(20,24,21,0) 100%),linear-gradient(180deg,rgba(20,24,21,0.55) 0%,rgba(20,24,21,0.48) 45%,rgba(20,24,21,0.8) 100%);z-index:1"></div>
+  <div style="position:relative;z-index:2;pointer-events:none;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(56px,8vw,112px)) clamp(20px,4vw,48px) clamp(48px,6vw,72px);color:#F6F3EE;display:flex;flex-direction:column;gap:22px">
     <h1 style="font-size:clamp(40px,5.6vw,76px);line-height:1.02;max-width:900px">Comprehensive Engineering, Contracting &amp; Building Solutions</h1>
     <p style="font-size:18px;line-height:1.65;max-width:640px;color:#E6E1D8">Explore our comprehensive range of HVAC, aluminium and facade works, building maintenance, interior fit-out, kitchen solutions and renovation services. We deliver practical, reliable solutions tailored to residential and commercial requirements.</p>
     <div style="display:flex;flex-wrap:wrap;gap:12px;pointer-events:auto">
@@ -701,6 +708,7 @@ input,select,textarea,button{font-family:inherit}
       <a href="#contact" style="border:1px solid rgba(246,243,238,0.7);color:#F6F3EE;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Request a Consultation</a>
     </div>
   </div>
+  <div style="position:absolute;top:84px;left:0;right:0;z-index:3"><div style="max-width:1240px;margin:0 auto;padding:14px clamp(20px,4vw,48px)"><nav aria-label="Breadcrumb" style="text-shadow:0 1px 12px rgba(0,0,0,0.45);display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#D9D3C7;pointer-events:auto"><a href="#top" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Home</a><span style="opacity:0.6">›</span><span style="color:#fff;white-space:nowrap">Services</span></nav></div></div>
 </section>
 <section id="svc-grid" style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px) 0;scroll-margin-top:84px">
   <div data-reveal="1" style="display:flex;flex-direction:column;gap:16px;max-width:720px">
@@ -749,10 +757,11 @@ input,select,textarea,button{font-family:inherit}
 
 <sc-if value="{{ isCat }}" hint-placeholder-val="{{ false }}">
 <section style="position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;overflow:hidden;background:#141815">
-  <div style="position:absolute;inset:0"><image-slot id="{{ cat.slot }}" shape="rect" src="{{ cat.src }}" placeholder="{{ cat.ph }}"></image-slot></div>
-  <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(20,24,21,0.88) 0%,rgba(20,24,21,0.6) 55%,rgba(20,24,21,0.25) 100%)"></div>
-  <div style="position:relative;pointer-events:none;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(56px,8vw,112px)) clamp(20px,4vw,48px) clamp(48px,6vw,72px);color:#F6F3EE;display:flex;flex-direction:column;gap:22px">
-    <nav aria-label="Breadcrumb" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#D9D3C7;pointer-events:auto"><a href="#top" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Home</a><span style="opacity:0.6">›</span><a href="#/services" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Services</a><span style="opacity:0.6">›</span><span style="color:#fff;white-space:nowrap">{{ cat.name }}</span></nav>
+  <div style="position:absolute;inset:0;overflow:hidden"><sc-for list="{{ heroSlides }}" as="sl" hint-placeholder-count="0">
+      <div role="img" aria-label="{{ sl.alt }}" style="position:absolute;inset:0;background-image:{{ sl.bg }};background-size:cover;background-position:center top;transform-origin:center top;opacity:{{ sl.op }};transform:scale({{ sl.scale }});transition:{{ sl.tr }};will-change:opacity,transform"></div>
+    </sc-for></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 60% at 22% 50%,rgba(20,24,21,0.4) 0%,rgba(20,24,21,0) 100%),linear-gradient(180deg,rgba(20,24,21,0.55) 0%,rgba(20,24,21,0.48) 45%,rgba(20,24,21,0.8) 100%);z-index:1"></div>
+  <div style="position:relative;z-index:2;pointer-events:none;max-width:1240px;width:100%;margin:0 auto;padding:calc(84px + clamp(56px,8vw,112px)) clamp(20px,4vw,48px) clamp(48px,6vw,72px);color:#F6F3EE;display:flex;flex-direction:column;gap:22px">
     <h1 style="font-size:clamp(40px,5.6vw,76px);line-height:1.02;max-width:900px">{{ cat.name }}</h1>
     <p style="font-size:18px;line-height:1.65;max-width:660px;color:#E6E1D8">{{ cat.intro }}</p>
     <div style="display:flex;flex-wrap:wrap;gap:12px;pointer-events:auto">
@@ -760,6 +769,7 @@ input,select,textarea,button{font-family:inherit}
       <a href="tel:+971542111113" style="border:1px solid rgba(246,243,238,0.7);color:#F6F3EE;border-radius:10px;padding:17px 26px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Call Now</a>
     </div>
   </div>
+  <div style="position:absolute;top:84px;left:0;right:0;z-index:3"><div style="max-width:1240px;margin:0 auto;padding:14px clamp(20px,4vw,48px)"><nav aria-label="Breadcrumb" style="text-shadow:0 1px 12px rgba(0,0,0,0.45);display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12.5px;color:#D9D3C7;pointer-events:auto"><a href="#top" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Home</a><span style="opacity:0.6">›</span><a href="#/services" style="color:#E6E1D8;white-space:nowrap" style-hover="color:#fff">Services</a><span style="opacity:0.6">›</span><span style="color:#fff;white-space:nowrap">{{ cat.name }}</span></nav></div></div>
 </section>
 <section style="max-width:1240px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,48px) 0">
   <div data-reveal="1" style="display:flex;flex-direction:column;gap:16px"><h2 style="font-size:clamp(36px,4.4vw,56px);line-height:1.04">Services We Provide</h2></div>
