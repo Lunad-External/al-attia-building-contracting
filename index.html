@@ -145,15 +145,16 @@ input,select,textarea,button{font-family:inherit}
   </sc-if>
   <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 60% at 22% 50%,rgba(20,24,21,0.4) 0%,rgba(20,24,21,0) 100%),linear-gradient(180deg,rgba(20,24,21,0.55) 0%,rgba(20,24,21,0.48) 45%,rgba(20,24,21,0.8) 100%);z-index:1"></div>
   <div style="position:relative;z-index:2;flex:1;display:flex;align-items:center;max-width:1240px;width:100%;margin:0 auto;padding:84px clamp(20px,4vw,48px) 0">
-    <sc-if value="{{ showHeroTitle }}" hint-placeholder-val="{{ true }}">
-      <h1 style="font-size:clamp(52px,7vw,112px);line-height:0.98;font-weight:400;letter-spacing:-0.035em;text-align:left;text-shadow:0 2px 28px rgba(0,0,0,0.4)"><span style="display:block;white-space:nowrap">Crafting Spaces</span><span style="display:block;white-space:nowrap">of Distinction</span></h1>
-    </sc-if>
+    <div style="display:flex;flex-direction:column;gap:clamp(16px,2vw,26px);font-family:Inter,system-ui,sans-serif;text-shadow:0 2px 28px rgba(0,0,0,0.4);color:#FFFFFF">
+      <h1 style="font-family:Inter,system-ui,sans-serif;font-size:clamp(40px,6.4vw,100px);line-height:1.06;font-weight:600;letter-spacing:-0.03em;color:#FFFFFF;text-align:left"><span style="display:block">Designed to Build.</span><span style="display:block">Built to Last.</span></h1>
+      <p style="font-family:Inter,system-ui,sans-serif;font-size:clamp(14px,1.35vw,19px);font-weight:500;letter-spacing:0.04em;color:rgba(255,255,255,0.85)">Engineering · Contracting · Building Solutions</p>
+    </div>
   </div>
   <div style="position:relative;z-index:2;text-shadow:0 2px 24px rgba(0,0,0,0.4);max-width:1240px;width:100%;margin:0 auto;padding:0 clamp(20px,4vw,48px) clamp(36px,5vw,56px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:32px 48px">
     <div style="display:flex;flex-direction:column;align-items:{{ heroCtaAlign }};gap:22px;width:100%">
       <div style="display:flex;flex-wrap:wrap;justify-content:{{ heroCtaAlign }};gap:12px;text-shadow:none;align-self:stretch">
-        <a href="#contact" style="background:#F6F3EE;color:#1F2420;border-radius:10px;padding:18px 28px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#9A6B43;color:#fff">Request Consultation</a>
-        <a href="#portfolio" style="border:1px solid rgba(246,243,238,0.7);color:#F6F3EE;backdrop-filter:blur(6px);border-radius:10px;padding:18px 28px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">View Portfolio</a>
+        <a href="#/projects" style="font-family:Inter,system-ui,sans-serif;transition:background .3s ease, color .3s ease, border-color .3s ease;background:#F6F3EE;color:#1F2420;border-radius:10px;padding:18px 28px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#9A6B43;color:#fff">Explore Projects</a>
+        <a href="#/services" style="font-family:Inter,system-ui,sans-serif;transition:background .3s ease, color .3s ease, border-color .3s ease;border:1px solid rgba(246,243,238,0.7);color:#F6F3EE;backdrop-filter:blur(6px);border-radius:10px;padding:18px 28px;white-space:nowrap;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase" style-hover="background:#F6F3EE;color:#1F2420">Our Services</a>
       </div>
       <sc-if value="{{ noVideo }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;gap:10px;align-self:center">
@@ -227,14 +228,14 @@ input,select,textarea,button{font-family:inherit}
     <p style="font-size:18px;line-height:1.65;color:#5E625C">Integrated capabilities across contracting, fit-out, manufacturing, and maintenance.</p>
   </div>
   <div style="margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));column-gap:64px;border-top:1px solid #1F2420">
-    <sc-for list="{{ services }}" as="s" hint-placeholder-count="8">
-      <div data-reveal="1" style="display:grid;grid-template-columns:56px 1fr;gap:20px;padding:30px 0;border-bottom:1px solid #DDD7CC">
-        <span style="font-family:Inter,system-ui,sans-serif;font-size:22px;color:#9A6B43;padding-top:2px">{{ s.num }}</span>
-        <div style="display:flex;flex-direction:column;gap:10px">
+    <sc-for list="{{ homeCats }}" as="s" hint-placeholder-count="6">
+      <a data-reveal="1" href="{{ s.href }}" style="display:flex;justify-content:space-between;align-items:flex-start;gap:24px;padding:30px 0;border-bottom:1px solid #DDD7CC;color:#1F2420" style-hover="color:#9A6B43">
+        <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
           <h3 style="font-size:28px;line-height:1.1">{{ s.title }}</h3>
           <p style="font-size:15px;line-height:1.65;color:#5E625C">{{ s.desc }}</p>
         </div>
-      </div>
+        <span style="font-size:20px;color:#9A6B43;padding-top:4px">→</span>
+      </a>
     </sc-for>
   </div>
   <div data-reveal="1" style="margin-top:56px;border-radius:20px;background:#E9E3D9;padding:clamp(28px,4vw,44px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px">
@@ -1182,7 +1183,7 @@ class Component extends DCLogic {
     const wa = (t) => waLink("Hello Al Attia Group, I'd like to enquire about " + t + ".");
     const emptyCat = { services: [], gallery: [], related: [] }, emptySvc = { scope: [], apps: [], related: [], relatedCats: [] };
     return {
-      isHome: page === "home", isAbout: page === "about", footerCats: cats.map((c) => ({ name: c.name, href: cH(c) })), isContact: page === "contact", ...this.contactVals(s, p), isProjects: page === "projects", isProject: page === "project",
+      isHome: page === "home", isAbout: page === "about", homeCats: cats.map((c) => ({ title: c.name, desc: c.short, href: cH(c) })), footerCats: cats.map((c) => ({ name: c.name, href: cH(c) })), isContact: page === "contact", ...this.contactVals(s, p), isProjects: page === "projects", isProject: page === "project",
       projCols: s.w >= 1000 ? 3 : s.w >= 640 ? 2 : 1, projRatio: s.w >= 640 ? "16/8" : "4/3",
       projWa: waLink(proj ? "Hello Al Attia Group, I'm planning a project similar to " + proj.name + "." : "Hello Al Attia Group, I'd like to start a project."),
       projList: PJ ? PJ.PROJECTS.map((x) => ({ name: x.name, location: x.location, href: "#/projects/" + x.slug, bg: 'url("' + x.image + '")' })) : [],
@@ -1240,7 +1241,7 @@ class Component extends DCLogic {
         logoShadow: over ? "drop-shadow(0 1px 10px rgba(0,0,0,0.35))" : "none",
       }; })(),
       ...(() => { const hasHero = s.route.type === "home" ? (p.heroStyle ?? "Video") !== "Split" : s.route.type !== "project"; const hide = ((hasHero && !s.pastHero) || s.atFooter) && !s.chat; return { fabOp: hide ? 0 : 1, fabVis: hide ? "hidden" : "visible", fabY: hide ? "16px" : "0px" }; })(),
-      showHeroTitle: s.w >= 768, heroCtaAlign: s.w >= 768 ? "flex-start" : "center",
+      heroCtaAlign: "flex-start",
       projGap: s.w < 640 ? "32px 14px" : "48px 24px",
       isMobile, showDesktopNav: !isMobile, showMobileMenu: isMobile && s.menu,
       menuLabel: s.menu ? "Close" : "Menu",
